@@ -42,12 +42,37 @@ namespace API.Servivces.Implementation
             _crupMstServivce = crupMstServivce;
             _commonService = commonService;
         }
+
         public async Task<FinancialServiceResponse> AddFinancialServiceAsync(TransactionHdDto transactionHdDto)
         {
             try
             {
                 if (_context != null)
                 {
+                    if (transactionHdDto.ServiceSubTypeId == 23)
+                    {
+                        return new FinancialServiceResponse
+                        {
+                            IsSuccess = false,
+                            Message = "Financial Loan General Not  Available"
+                        };
+                    }
+                    if (transactionHdDto.ServiceSubTypeId == 13)
+                    {
+                        return new FinancialServiceResponse
+                        {
+                            IsSuccess = false,
+                            Message = "Consumption Loan Not  Available"
+                        };
+                    }
+                    if (transactionHdDto.ServiceSubTypeId == 14)
+                    {
+                        return new FinancialServiceResponse
+                        {
+                            IsSuccess = false,
+                            Message = "Medical Loan Not  Available"
+                        };
+                    }
                     FinancialServiceResponse response = new FinancialServiceResponse();
                     var newTransaction = _mapper.Map<TransactionHd>(transactionHdDto);
                     string pfid = string.Empty;
@@ -205,14 +230,14 @@ namespace API.Servivces.Implementation
 
 
                         #region Save Into TransactionHDDApprovalDetails
-                        int srId = 0;
-                        int MyTransId = (int)_context.TransactionHds.FromSqlRaw("select ISNULL(MAX(MYTRANSID),0) as MyTransId from TransactionHD where employeeID='" + newTransaction.EmployeeId + "'").Select(c => c.Mytransid).FirstOrDefault();
-                        if (MyTransId > 0)
-                        {
-                            int mySeq = (int)_context.TransactionHddapprovalDetails.FromSqlRaw("SELECT ISNULL(MAX(mySeq),0)+1 AS mySeq FROM TransactionHddapprovalDetails Where Mytransid ='" + MyTransId + "'").Select(c => c.mySeq).FirstOrDefault();
-                            newTransaction.Mytransid = MyTransId;
-                            srId = mySeq;
-                        }
+                       // int srId = 0;
+                       // int MyTransId = (int)_context.TransactionHds.FromSqlRaw("select ISNULL(MAX(MYTRANSID),0) as MyTransId from TransactionHD where employeeID='" + newTransaction.EmployeeId + "'").Select(c => c.Mytransid).FirstOrDefault();
+                        //if (MyTransId > 0)
+                        //{
+                        //    int mySeq = (int)_context.TransactionHddapprovalDetails.FromSqlRaw("SELECT ISNULL(MAX(mySeq),0)+1 AS mySeq FROM TransactionHddapprovalDetails Where Mytransid ='" + MyTransId + "'").Select(c => c.mySeq).FirstOrDefault();
+                        //    //newTransaction.Mytransid = MyTransId;
+                        //    srId = mySeq;
+                        //}
 
 
                         var serviceApprovals = _context.ServiceSetups.Where(p => p.ServiceType == newTransaction.ServiceTypeId && p.ServiceSubType == newTransaction.ServiceSubTypeId).FirstOrDefault();
@@ -230,7 +255,7 @@ namespace API.Servivces.Implementation
                             if (serviceApprovals != null)
                             {
                                 myService.RemoveAll(item => item == null);
-                                //int srId = 0;
+                                 int srId = 0;
                                 for (int i = 0; i < myService.Count; i++) // myservice is one active  = true else false.
                                 {
                                     var transactionHddApprovalsDto = new TransactionHddapprovalDetailDto()
@@ -298,7 +323,7 @@ namespace API.Servivces.Implementation
                                 return new FinancialServiceResponse
                                 {
                                     IsSuccess = false,
-                                    Message = "Duplicate subscriber..."
+                                    Message = "Duplicate subscriber"
                                 };
                             }
 
@@ -610,7 +635,14 @@ namespace API.Servivces.Implementation
                         else if (transactionHdDto.ServiceTypeId == 22) // Financial Loan -  قروض مالية
                         {
                             #region Financial Loan General
-
+                            if (transactionHdDto.ServiceSubTypeId == 23)
+                            {
+                                return new FinancialServiceResponse
+                                {
+                                    IsSuccess = false,
+                                    Message = "Financial Loan General Not  Available"
+                                };
+                            }
                             #endregion
 
                             #region Hajj Loan
@@ -727,11 +759,25 @@ namespace API.Servivces.Implementation
                             #endregion
 
                             #region Consumption Loan
-
+                            if (transactionHdDto.ServiceSubTypeId == 13)
+                            {
+                                return new FinancialServiceResponse
+                                {
+                                    IsSuccess = false,
+                                    Message = "Consumption Loan Not  Available"
+                                };
+                            }
                             #endregion
 
                             #region Medical Loan
-
+                            if (transactionHdDto.ServiceSubTypeId == 14)
+                            {
+                                return new FinancialServiceResponse
+                                {
+                                    IsSuccess = false,
+                                    Message = "Medical Loan Not  Available"
+                                };
+                            }
                             #endregion
 
                         }
