@@ -1,6 +1,7 @@
 ﻿using API.Common;
 using API.DTOs;
 using API.DTOs.FinancialTransaction;
+using API.Helpers;
 using API.Models;
 using API.Servivces.Interfaces;
 using AutoMapper;
@@ -19,8 +20,10 @@ namespace API.Servivces.Implementation
 {
     public class AccountService : IAccountService
     {
-        public IEnumerable<VoucherDto> GetVoucher()
+
+        public async Task<List<VoucherDto>> GetVoucher(PaginationParams paginationParams)
         {
+            var filterdata = new List<VoucherDto>(); ;
             List<VoucherDto> voucherList = new List<VoucherDto>();
             using (SqlConnection connection = new SqlConnection(CommonMethods.GetDbConnection()))
             {
@@ -34,9 +37,9 @@ namespace API.Servivces.Implementation
                         while (dataReader.Read())
                         {
                             VoucherDto voucher = new VoucherDto();
-                            voucher.VoucherId = Convert.ToInt32(dataReader["VoucherId"]);
-                            voucher.VoucherDate = Convert.ToDateTime(dataReader["VoucherDate"]);
-                            voucher.VoucherCode = Convert.ToString(dataReader["VoucherCode"]);
+                            voucher.JvId = Convert.ToInt32(dataReader["VoucherId"]);
+                            voucher.JvDate = Convert.ToDateTime(dataReader["VoucherDate"]);
+                            voucher.JvCode = Convert.ToString(dataReader["VoucherCode"]);
                             voucher.Narrations = dataReader["Narrations"].ToString();
                             voucher.IsPosted = (bool)dataReader["IsPosted"];
                             voucher.TotalAmount = Convert.ToDouble(dataReader["TotalAmount"]);
@@ -47,16 +50,27 @@ namespace API.Servivces.Implementation
                             voucher.LoanAccountNumber = Convert.ToString(dataReader["LoanAct"]);
                             voucher.ServiceType = Convert.ToString(dataReader["ServiceType"]);
                             voucher.ServiceSubType = Convert.ToString(dataReader["ServiceSubType"]);
+                            voucher.CivilId = Convert.ToString(dataReader["emp_cid_num"]);
+                            voucher.PFID = Convert.ToString(dataReader["PFID"]);
                             voucher.Status = Convert.ToString(dataReader["Status"]);
                             voucherList.Add(voucher);
                         }
                         connection.Close();
                     }
                 }
-            }
-            return voucherList;
-        }
+                filterdata = voucherList.Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize).Take(paginationParams.PageSize).ToList();
 
+                if (paginationParams.Query != null && paginationParams.Query != "")
+                {
+                    filterdata = filterdata.Where(a => a.EnglishName.ToLower().Contains(paginationParams.Query.ToLower()) || a.ArabicName.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    a.ServiceType.ToLower().Contains(paginationParams.Query.ToLower()) || a.Status.ToLower().Contains(paginationParams.Query.ToLower())
+                    || a.JvCode.ToLower().Contains(paginationParams.Query.ToLower()) || a.CivilId.ToLower().Contains(paginationParams.Query.ToLower())
+                       || a.PFID.ToLower().Contains(paginationParams.Query.ToLower()) || a.employeeID.ToLower().Contains(paginationParams.Query.ToLower())).ToList();
+
+                }
+            }
+            return filterdata;
+        }
         public IEnumerable<VoucherDetailsDto> GetVoucherDetails(int voucherId)
         {
             List<VoucherDetailsDto> voucherDetailsList = new List<VoucherDetailsDto>();
