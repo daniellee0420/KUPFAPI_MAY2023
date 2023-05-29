@@ -1,7 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace API.DTOs
 {
+    public class VoucherDtoListObj
+    {
+        public int TotalRecords { get; set; }
+        public  List<VoucherDto>  VoucherDto { get; set; }
+       // public VoucherDto[] VoucherDto { get; set; }
+    }
+
     public class VoucherDto
     {
         public long JvId { get; set; }

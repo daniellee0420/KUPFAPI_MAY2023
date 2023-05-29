@@ -8,8 +8,9 @@ namespace API.Servivces.Interfaces
 {
     public interface IAccountService
     {
-        Task<List<VoucherDto>> GetVoucher(PaginationParams paginationParams);
+        Task<VoucherDtoListObj> GetVoucher(PaginationParams paginationParams);
         IEnumerable<VoucherDetailsDto> GetVoucherDetails(int voucherId);
+        IEnumerable<VoucherDetailsDto> GetVoucherDetailsByTransId(int TransId);
 
     }
 }

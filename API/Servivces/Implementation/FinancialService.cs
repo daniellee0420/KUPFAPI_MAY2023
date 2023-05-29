@@ -230,8 +230,8 @@ namespace API.Servivces.Implementation
 
 
                         #region Save Into TransactionHDDApprovalDetails
-                       // int srId = 0;
-                       // int MyTransId = (int)_context.TransactionHds.FromSqlRaw("select ISNULL(MAX(MYTRANSID),0) as MyTransId from TransactionHD where employeeID='" + newTransaction.EmployeeId + "'").Select(c => c.Mytransid).FirstOrDefault();
+                        // int srId = 0;
+                        // int MyTransId = (int)_context.TransactionHds.FromSqlRaw("select ISNULL(MAX(MYTRANSID),0) as MyTransId from TransactionHD where employeeID='" + newTransaction.EmployeeId + "'").Select(c => c.Mytransid).FirstOrDefault();
                         //if (MyTransId > 0)
                         //{
                         //    int mySeq = (int)_context.TransactionHddapprovalDetails.FromSqlRaw("SELECT ISNULL(MAX(mySeq),0)+1 AS mySeq FROM TransactionHddapprovalDetails Where Mytransid ='" + MyTransId + "'").Select(c => c.mySeq).FirstOrDefault();
@@ -255,7 +255,7 @@ namespace API.Servivces.Implementation
                             if (serviceApprovals != null)
                             {
                                 myService.RemoveAll(item => item == null);
-                                 int srId = 0;
+                                int srId = 0;
                                 for (int i = 0; i < myService.Count; i++) // myservice is one active  = true else false.
                                 {
                                     var transactionHddApprovalsDto = new TransactionHddapprovalDetailDto()
@@ -2812,55 +2812,66 @@ namespace API.Servivces.Implementation
         public async Task<int> CreateCahierDraft(CashierApprovalDto cashierApprovalDto)
         {
             int result = 0;
-            var existingtransactionHd = _context.TransactionHds
-                    .Where(c => c.Mytransid == cashierApprovalDto.TransId &&
-                    c.EmployeeId == Convert.ToInt32(cashierApprovalDto.EmployeeId)).FirstOrDefault();
-
-            var existingTransactionApprovals = _context.TransactionHddapprovalDetails
-                .Where(p => p.Mytransid == cashierApprovalDto.TransId
-                && p.EmployeeId == Convert.ToInt32(cashierApprovalDto.EmployeeId)).FirstOrDefault();
-
-            if (existingtransactionHd != null)
+            try
             {
-                //
-                existingTransactionApprovals.Status = "CashierDraft";
-                existingTransactionApprovals.ApprovalDate = DateTime.Now;
-                _context.TransactionHddapprovalDetails.Update(existingTransactionApprovals);
-                result = await _context.SaveChangesAsync();
-                _context.ChangeTracker.Clear();
-                //
-                existingtransactionHd.DraftNumber1 = cashierApprovalDto.DraftNumber1;
-                existingtransactionHd.DraftNumber2 = cashierApprovalDto.DraftNumber2;
-                existingtransactionHd.DraftDate1 = cashierApprovalDto.DraftDate1;
-                existingtransactionHd.DraftDate2 = cashierApprovalDto.DraftDate2;
-                existingtransactionHd.TotalAmount = cashierApprovalDto.TotalAmount;
-                existingtransactionHd.BankAccount1 = cashierApprovalDto.BankAccount1;
-                existingtransactionHd.ReceivedBy1 = cashierApprovalDto.ReceivedBy1;
-                existingtransactionHd.ReceivedDate1 = cashierApprovalDto.ReceivedDate1;
-                existingtransactionHd.DeliveryDate1 = cashierApprovalDto.ReceivedDate;
-                existingtransactionHd.DeliveredBy1 = cashierApprovalDto.DeliveredBy1;
-                existingtransactionHd.Transdate = DateTime.Now;
-                existingtransactionHd.Status = "DraftMade";
-                existingtransactionHd.IsDraftCreated = true;
 
-                existingtransactionHd.Mytransid = (long)cashierApprovalDto.TransId;
-                existingtransactionHd.EmployeeId = Convert.ToInt32(cashierApprovalDto.EmployeeId);
-                existingtransactionHd.AccountantID = cashierApprovalDto.AccountantID;
-                existingtransactionHd.BenefeciaryName = cashierApprovalDto.BenefeciaryName;
-                existingtransactionHd.ChequeNumber = cashierApprovalDto.ChequeNumber;
-                existingtransactionHd.ChequeDate = cashierApprovalDto.ChequeDate;
-                existingtransactionHd.ChequeAmount = cashierApprovalDto.ChequeAmount;
-                existingtransactionHd.CollectedBy = cashierApprovalDto.CollectedBy;
-                existingtransactionHd.Relationship = cashierApprovalDto.Relationship;
-                existingtransactionHd.CollectedPersonCID = cashierApprovalDto.CollectedPersonCID;
+                var existingtransactionHd = _context.TransactionHds
+                        .Where(c => c.Mytransid == cashierApprovalDto.TransId &&
+                        c.EmployeeId == Convert.ToInt32(cashierApprovalDto.EmployeeId)).FirstOrDefault();
 
-                _context.TransactionHds.Update(existingtransactionHd);
-                result = await _context.SaveChangesAsync();
-                _context.ChangeTracker.Clear();
+                var existingTransactionApprovals = _context.TransactionHddapprovalDetails
+                    .Where(p => p.Mytransid == cashierApprovalDto.TransId
+                    && p.EmployeeId == Convert.ToInt32(cashierApprovalDto.EmployeeId)).FirstOrDefault();
+
+                if (existingtransactionHd != null)
+                {
+                    //
+
+                    //
+                    existingtransactionHd.DraftNumber1 = cashierApprovalDto.DraftNumber1;
+                    existingtransactionHd.DraftNumber2 = cashierApprovalDto.DraftNumber2;
+                    existingtransactionHd.DraftDate1 = cashierApprovalDto.DraftDate1;
+                    existingtransactionHd.DraftDate2 = cashierApprovalDto.DraftDate2;
+                    existingtransactionHd.TotalAmount = cashierApprovalDto.TotalAmount;
+                    existingtransactionHd.BankAccount1 = cashierApprovalDto.BankAccount1;
+                    existingtransactionHd.ReceivedBy1 = cashierApprovalDto.ReceivedBy1;
+                    existingtransactionHd.ReceivedDate1 = cashierApprovalDto.ReceivedDate1;
+                    existingtransactionHd.DeliveryDate1 = cashierApprovalDto.ReceivedDate;
+                    existingtransactionHd.DeliveredBy1 = cashierApprovalDto.DeliveredBy1;
+                    existingtransactionHd.Transdate = DateTime.Now;
+                    existingtransactionHd.Status = "DraftMade";
+                    existingtransactionHd.IsDraftCreated = true;
+
+                    existingtransactionHd.Mytransid = (long)cashierApprovalDto.TransId;
+                    existingtransactionHd.EmployeeId = Convert.ToInt32(cashierApprovalDto.EmployeeId);
+                    existingtransactionHd.AccountantID = cashierApprovalDto.AccountantID;
+                    existingtransactionHd.BenefeciaryName = cashierApprovalDto.BenefeciaryName;
+                    existingtransactionHd.ChequeNumber = cashierApprovalDto.ChequeNumber;
+                    existingtransactionHd.ChequeDate = cashierApprovalDto.ChequeDate;
+                    existingtransactionHd.ChequeAmount = cashierApprovalDto.ChequeAmount;
+                    existingtransactionHd.CollectedBy = cashierApprovalDto.CollectedBy;
+                    existingtransactionHd.Relationship = cashierApprovalDto.Relationship;
+                    existingtransactionHd.CollectedPersonCID = cashierApprovalDto.CollectedPersonCID;
+
+                    _context.TransactionHds.Update(existingtransactionHd);
+                    result = await _context.SaveChangesAsync();
+                    _context.ChangeTracker.Clear();
+
+
+                    existingTransactionApprovals.Status = "CashierDraft";
+                    existingTransactionApprovals.ApprovalDate = DateTime.Now;
+                    _context.TransactionHddapprovalDetails.Update(existingTransactionApprovals);
+                    result = await _context.SaveChangesAsync();
+                    _context.ChangeTracker.Clear();
+                }
+
+
+                return result;
             }
-
-
-            return result;
+            catch (Exception ex)
+            {
+                return result;
+            }
         }
         public int GenerateFinancialServiceSerialNo()
         {
