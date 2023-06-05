@@ -18,12 +18,12 @@ using System.Threading.Tasks;
 namespace API.Servivces.Implementation
 {
     public class AccountService : IAccountService
-    {
+    {  
         public IEnumerable<VoucherDto> GetVoucher()
         {
             List<VoucherDto> voucherList = new List<VoucherDto>();
             using (SqlConnection connection = new SqlConnection(CommonMethods.GetDbConnection()))
-            {
+            {                
                 string sql = "spGetVourcher";
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
@@ -36,18 +36,10 @@ namespace API.Servivces.Implementation
                             VoucherDto voucher = new VoucherDto();
                             voucher.VoucherId = Convert.ToInt32(dataReader["VoucherId"]);
                             voucher.VoucherDate = Convert.ToDateTime(dataReader["VoucherDate"]);
-                            voucher.VoucherCode = Convert.ToString(dataReader["VoucherCode"]);
+                            voucher.VoucherCode = dataReader["VoucherCode"].ToString();
                             voucher.Narrations = dataReader["Narrations"].ToString();
                             voucher.IsPosted = (bool)dataReader["IsPosted"];
                             voucher.TotalAmount = Convert.ToDouble(dataReader["TotalAmount"]);
-                            voucher.MYTRANSID = Convert.ToInt64(dataReader["MYTRANSID"]);
-                            voucher.ArabicName = Convert.ToString(dataReader["ArabicName"]);
-                            voucher.EnglishName = Convert.ToString(dataReader["EnglishName"]);
-                            voucher.employeeID = Convert.ToString(dataReader["employeeID"]);
-                            voucher.LoanAccountNumber = Convert.ToString(dataReader["LoanAct"]);
-                            voucher.ServiceType = Convert.ToString(dataReader["ServiceType"]);
-                            voucher.ServiceSubType = Convert.ToString(dataReader["ServiceSubType"]);
-                            voucher.Status = Convert.ToString(dataReader["Status"]);
                             voucherList.Add(voucher);
                         }
                         connection.Close();
@@ -78,7 +70,7 @@ namespace API.Servivces.Implementation
                             voucherDetails.AccountId = Convert.ToInt32(dataReader["Account_ID"]);
                             voucherDetails.Amount = Convert.ToDouble(dataReader["Amount"]);
                             voucherDetails.Particular = dataReader["Particular"].ToString();
-                            if (dataReader["ChequeNo"] == DBNull.Value)
+                            if(dataReader["ChequeNo"] == DBNull.Value)
                             {
                                 voucherDetails.ChequeNo = "";
                             }
