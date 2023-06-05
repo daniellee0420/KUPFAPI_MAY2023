@@ -3299,47 +3299,37 @@ namespace API.Servivces.Implementation
 
         public async Task<string> FinanceApproveServiceAsync(ApproveRejectServiceDto approveRejectServiceDto)
         {
-            try
+            int result = 0;
+            if (_context != null)
             {
-                int result = 0;
-                if (_context != null)
+                // Update status of existing record...
+                var existingtransactionHddApprovals = _context.TransactionHddapprovalDetails
+                    .Where(c => c.Mytransid == approveRejectServiceDto.Mytransid
+                    && c.TenentId == approveRejectServiceDto.TenentId
+                    && c.LocationId == approveRejectServiceDto.LocationId && c.SerApprovalId == 2).FirstOrDefault();
+                // 
+                var existingTransactionHd = _context.TransactionHds.Where(c => c.Mytransid == existingtransactionHddApprovals.Mytransid).FirstOrDefault();
+                //
+                var serviceApprovals = _context.ServiceSetups.Where(p => p.ServiceType == existingTransactionHd.ServiceTypeId && p.ServiceSubType == existingTransactionHd.ServiceSubTypeId).FirstOrDefault();
+                if (existingtransactionHddApprovals != null)
                 {
-                    // Update status of existing record...
-                    var existingtransactionHddApprovals = _context.TransactionHddapprovalDetails
-                        .Where(c => c.Mytransid == approveRejectServiceDto.Mytransid
-                        && c.TenentId == approveRejectServiceDto.TenentId
-                        && c.LocationId == approveRejectServiceDto.LocationId && c.SerApprovalId == 2).FirstOrDefault();
-
-                    var data = _context.TransactionHddapprovalDetails
-               .Where(c => c.Mytransid == approveRejectServiceDto.Mytransid
-               && c.TenentId == approveRejectServiceDto.TenentId
-               && c.LocationId == approveRejectServiceDto.LocationId && c.SerApprovalId == 1).FirstOrDefault();
-
-                    var crupid = data.CrupId == null ? 0 : data.CrupId;
-                    // 
-                    var existingTransactionHd = _context.TransactionHds.Where(c => c.Mytransid == existingtransactionHddApprovals.Mytransid).FirstOrDefault();
+                    // Update TransactionHddapprovalDetails
+                    existingtransactionHddApprovals.SerApproval = Convert.ToString(approveRejectServiceDto.RoleId);
+                    existingtransactionHddApprovals.Userid = approveRejectServiceDto.UserId;
+                    existingtransactionHddApprovals.ApprovalDate = approveRejectServiceDto.ApprovalDate;
+                    existingtransactionHddApprovals.Entrydate = (DateTime)approveRejectServiceDto.Entrydate;
+                    existingtransactionHddApprovals.Entrytime = (DateTime)approveRejectServiceDto.Entrytime;
+                    existingtransactionHddApprovals.Status = "FinanceApproved";
+                    existingtransactionHddApprovals.ApprovalDate = DateTime.Now;
+                    existingtransactionHddApprovals.ApprovalRemarks = approveRejectServiceDto.ApprovalRemarks;
+                    existingtransactionHddApprovals.Active = false;
+                    _context.TransactionHddapprovalDetails.Update(existingtransactionHddApprovals);
+                    await _context.SaveChangesAsync();
+                    _context.ChangeTracker.Clear();
                     //
-                    var serviceApprovals = _context.ServiceSetups.Where(p => p.ServiceType == existingTransactionHd.ServiceTypeId && p.ServiceSubType == existingTransactionHd.ServiceSubTypeId).FirstOrDefault();
-                    if (existingtransactionHddApprovals != null)
+                    if (serviceApprovals != null)
                     {
-                        // Update TransactionHddapprovalDetails
-                        existingtransactionHddApprovals.SerApproval = Convert.ToString(approveRejectServiceDto.RoleId);
-                        existingtransactionHddApprovals.Userid = approveRejectServiceDto.UserId;
-                        existingtransactionHddApprovals.ApprovalDate = approveRejectServiceDto.ApprovalDate;
-                        existingtransactionHddApprovals.Entrydate = (DateTime)approveRejectServiceDto.Entrydate;
-                        existingtransactionHddApprovals.Entrytime = (DateTime)approveRejectServiceDto.Entrytime;
-                        existingtransactionHddApprovals.Status = "FinanceApproved";
-                        existingtransactionHddApprovals.CrupId = crupid;
-                        existingtransactionHddApprovals.ApprovalDate = DateTime.Now;
-                        existingtransactionHddApprovals.ApprovalRemarks = approveRejectServiceDto.ApprovalRemarks;
-                        existingtransactionHddApprovals.Active = false;
-                        _context.TransactionHddapprovalDetails.Update(existingtransactionHddApprovals);
-                        await _context.SaveChangesAsync();
-                        _context.ChangeTracker.Clear();
-                        //
-                        if (serviceApprovals != null)
-                        {
-                            List<string> myService = new List<string>
+                        List<string> myService = new List<string>
                             {
                                 serviceApprovals.SerApproval1,
                                 serviceApprovals.SerApproval2,
@@ -3348,42 +3338,35 @@ namespace API.Servivces.Implementation
                                 serviceApprovals.SerApproval5,
                                 serviceApprovals.SerApproval6
                             };
-                            if (serviceApprovals != null)
-                            {
-                                myService.RemoveAll(item => item == null);
-                                existingTransactionHd.SerApproval2 = myService[1];
-                                existingTransactionHd.ApprovalBy2 = approveRejectServiceDto.UserId;
-                                existingTransactionHd.ApprovedDate2 = DateTime.Now;
-                            }
+                        if (serviceApprovals != null)
+                        {
+                            myService.RemoveAll(item => item == null);
+                            existingTransactionHd.SerApproval2 = myService[1];
+                            existingTransactionHd.ApprovalBy2 = approveRejectServiceDto.UserId;
+                            existingTransactionHd.ApprovedDate2 = DateTime.Now;
                         }
-                        // Update TransactionHD.                    
-                        _context.TransactionHds.Update(existingTransactionHd);
-                        await _context.SaveChangesAsync();
-                        _context.ChangeTracker.Clear();
-
                     }
-                    var activateNextRow = _context.TransactionHddapprovalDetails
-                        .Where(c => c.Mytransid == approveRejectServiceDto.Mytransid
-                        && c.TenentId == approveRejectServiceDto.TenentId
-                        && c.LocationId == approveRejectServiceDto.LocationId && c.SerApprovalId == 3).FirstOrDefault();
+                    // Update TransactionHD.                    
+                    _context.TransactionHds.Update(existingTransactionHd);
+                    await _context.SaveChangesAsync();
+                    _context.ChangeTracker.Clear();
 
-                    if (activateNextRow != null)
-                    {
-                        activateNextRow.Active = true;
-                        _context.TransactionHddapprovalDetails.Update(activateNextRow);
-                        await _context.SaveChangesAsync();
-                        _context.ChangeTracker.Clear();
-                    }
-                    return result.ToString();
+                }
+                var activateNextRow = _context.TransactionHddapprovalDetails
+                    .Where(c => c.Mytransid == approveRejectServiceDto.Mytransid
+                    && c.TenentId == approveRejectServiceDto.TenentId
+                    && c.LocationId == approveRejectServiceDto.LocationId && c.SerApprovalId == 3).FirstOrDefault();
+
+                if (activateNextRow != null)
+                {
+                    activateNextRow.Active = true;
+                    _context.TransactionHddapprovalDetails.Update(activateNextRow);
+                    await _context.SaveChangesAsync();
+                    _context.ChangeTracker.Clear();
                 }
                 return result.ToString();
             }
-            catch (Exception ex)
-            {
-                string msg = ex.Message;
-                return null;
-            }
-
+            return result.ToString();
         }
 
         public async Task<string> FinanceRejectServiceAsync(ApproveRejectServiceDto approveRejectServiceDto)

@@ -1,5 +1,4 @@
 ﻿using API.DTOs;
-using API.Helpers;
 using API.Models;
 using API.Servivces.Interfaces;
 using AutoMapper;
@@ -23,9 +22,9 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetVoucher")]
-        public async Task<List<VoucherDto>> GetVoucher([FromQuery] PaginationParams paginationParams)
+        public async Task<IEnumerable<VoucherDto>> GetVoucher()
         {
-            var result = await _accountService.GetVoucher(paginationParams);
+            var result =  _accountService.GetVoucher();
             return result;
         }
         [HttpGet]
