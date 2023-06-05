@@ -23,7 +23,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetVoucher")]
-        public async Task<VoucherDtoListObj> GetVoucher([FromQuery] PaginationParams paginationParams)
+        public async Task<List<VoucherDto>> GetVoucher([FromQuery] PaginationParams paginationParams)
         {
             var result = await _accountService.GetVoucher(paginationParams);
             return result;
@@ -33,14 +33,6 @@ namespace API.Controllers
         public async Task<IEnumerable<VoucherDetailsDto>> GetVoucherDetails(int voucherId)
         {
             var result = _accountService.GetVoucherDetails(voucherId);
-            return result;
-        }
-
-        [HttpGet]
-        [Route("GetVoucherDetailsByTransId")]
-        public async Task<IEnumerable<VoucherDetailsDto>> GetVoucherDetailsByTransId(int TransId)
-        {
-            var result = _accountService.GetVoucherDetailsByTransId(TransId);
             return result;
         }
     }
