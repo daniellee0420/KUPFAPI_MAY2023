@@ -1,0 +1,446 @@
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\appsettings.Development.json
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\appsettings.json
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\API.exe
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\API.deps.json
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.json
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.dev.json
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\API.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\ref\API.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\API.pdb
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\AutoMapper.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Humanizer.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Microsoft.OpenApi.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\System.Runtime.Caching.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.csproj.AssemblyReference.cache
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.GeneratedMSBuildEditorConfig.editorconfig
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfoInputs.cache
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfo.cs
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.csproj.CoreCompileInputs.cache
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cs
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cache
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.Manifest.cache
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.xml
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\scopedcss\bundle\API.styles.css
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.RazorTargetAssemblyInfo.cache
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.csproj.CopyComplete
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\ref\API.dll
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.pdb
+E:\MyWork\Running Projects\Mr. Johar\KUPF\KUPFApi\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.GeneratedMSBuildEditorConfig.editorconfig
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfoInputs.cache
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfo.cs
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.csproj.CoreCompileInputs.cache
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cs
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cache
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.pdb
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\appsettings.Development.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\appsettings.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.exe
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.deps.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.dev.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\ref\API.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.pdb
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\AutoMapper.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Humanizer.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Binder.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Configuration.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Console.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.OpenApi.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Runtime.Caching.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Text.Json.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.Manifest.cache
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.xml
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\scopedcss\bundle\API.styles.css
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.RazorTargetAssemblyInfo.cache
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.csproj.CopyComplete
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\ref\API.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\web.config
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\API.deps.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\API.runtimeconfig.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\appsettings.Development.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\appsettings.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\web.config
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\API.deps.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\API.runtimeconfig.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\appsettings.Development.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\appsettings.json
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\MyWork\GitHub11July2022\KUPFApp\KUPFApp\kupfapi\api\obj\Debug\net5.0\API.csproj.AssemblyReference.cache
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\publish\web.config
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\web.config
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\web.config
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\web.config
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\web.config
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\appsettings.Development.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\appsettings.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\API.deps.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\API.runtimeconfig.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\appsettings.Development.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\appsettings.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\API.deps.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\API.runtimeconfig.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\appsettings.Development.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\appsettings.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\API.deps.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\API.runtimeconfig.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\appsettings.Development.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\appsettings.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\API.deps.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\API.runtimeconfig.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\appsettings.Development.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\appsettings.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\publish\API.deps.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\publish\API.runtimeconfig.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\publish\appsettings.Development.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\publish\publish\publish\publish\publish\appsettings.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.exe
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.deps.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.dev.json
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.pdb
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.xml
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\AutoMapper.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Humanizer.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Binder.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Configuration.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Console.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.OpenApi.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Runtime.Caching.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Text.Json.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.csproj.AssemblyReference.cache
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.GeneratedMSBuildEditorConfig.editorconfig
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfoInputs.cache
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfo.cs
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.csproj.CoreCompileInputs.cache
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cs
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cache
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\scopedcss\bundle\API.styles.css
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.Manifest.cache
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.Pack.cache
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.build.API.props
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.API.props
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.RazorTargetAssemblyInfo.cache
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.csproj.CopyComplete
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\refint\API.dll
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.pdb
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+E:\MyWork\KUPF-28-10\KUPFApp\KUPFApi\API\obj\Debug\net5.0\ref\API.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\appsettings.Development.json
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\appsettings.json
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.exe
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.deps.json
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.json
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.dev.json
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.pdb
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\API.xml
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\AutoMapper.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Humanizer.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Binder.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Configuration.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Console.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Microsoft.OpenApi.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Runtime.Caching.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\System.Text.Json.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.csproj.AssemblyReference.cache
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.GeneratedMSBuildEditorConfig.editorconfig
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfoInputs.cache
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfo.cs
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.csproj.CoreCompileInputs.cache
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cs
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cache
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\scopedcss\bundle\API.styles.css
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.Manifest.cache
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.Pack.cache
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.build.API.props
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.API.props
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.RazorTargetAssemblyInfo.cache
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.csproj.CopyComplete
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\refint\API.dll
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.pdb
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+E:\MyWork\New folder\KUPFApp\KUPFApi\API\obj\Debug\net5.0\ref\API.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\appsettings.json
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\API.exe
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\API.deps.json
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.json
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\API.runtimeconfig.dev.json
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\API.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\API.pdb
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\API.xml
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Humanizer.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Configuration.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Console.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\System.Runtime.Caching.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\System.Text.Json.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.csproj.AssemblyReference.cache
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfoInputs.cache
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.AssemblyInfo.cs
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\scopedcss\bundle\API.styles.css
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.Manifest.cache
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.Pack.cache
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.build.API.props
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.API.props
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.RazorTargetAssemblyInfo.cache
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.csproj.CopyComplete
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\refint\API.dll
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.pdb
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+C:\Users\LENOVO\source\repos\KUPF-Latest\KUPFApi\API\obj\Debug\net5.0\ref\API.dll

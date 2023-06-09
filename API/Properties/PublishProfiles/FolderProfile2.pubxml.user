@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\kufripublish</_PublishTargetUrl>
+    <History>True|2023-05-26T20:21:08.2910702Z;True|2023-05-26T00:03:24.6439719+05:30;False|2023-05-25T23:59:49.0680018+05:30;True|2023-05-25T22:07:13.2060100+05:30;True|2023-05-25T21:54:31.1314436+05:30;True|2023-05-25T00:25:56.4152586+05:30;True|2023-05-24T00:15:45.6073564+05:30;True|2023-05-20T22:10:08.4443709+05:30;True|2023-05-20T21:53:16.8114882+05:30;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
