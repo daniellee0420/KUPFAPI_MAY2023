@@ -1,4 +1,5 @@
 ﻿using API.DTOs.RefTable;
+using API.Helpers;
 using API.Models;
 using API.Servivces;
 using AutoMapper;
@@ -94,10 +95,10 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetRefTableByRefTypeAndSubType/{refType}/{refSubType}")]
-        public async Task<ActionResult<IEnumerable<RefTableDto>>> GetRefTableByRefTypeAndSubType(string refType, string refSubType)
+        public async Task<RefTableDtoListObj> GetRefTableByRefTypeAndSubType([FromQuery] PaginationParams paginationParams,string refType, string refSubType)
         {
-            var result = await _refTableService.GetRefTableByRefTypeAndSubTypeAsync(refType, refSubType);
-            return Ok(result);
+            var result = await _refTableService.GetRefTableByRefTypeAndSubTypeAsync(paginationParams,refType, refSubType);
+              return result;
         }
     }
 }

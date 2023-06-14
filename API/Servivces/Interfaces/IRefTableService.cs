@@ -1,4 +1,5 @@
 ﻿using API.DTOs.RefTable;
+using API.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace API.Servivces
         Task<int> DeleteRefTableAsync(int id);
         Task<RefTableDto> GetRefTableByIdAsync(int refId, string refType, string refSubType);
         Task<IEnumerable<RefTableDto>> GetRefTableAsync();
-        Task<IEnumerable<RefTableDto>> GetRefTableByRefTypeAndSubTypeAsync(string refType,string refSubType);
+        Task<RefTableDtoListObj> GetRefTableByRefTypeAndSubTypeAsync(PaginationParams paginationParams, string refType, string refSubType);
     }
 }

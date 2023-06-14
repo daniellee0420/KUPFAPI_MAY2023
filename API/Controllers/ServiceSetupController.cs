@@ -85,10 +85,11 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetServiceSetup")]
-        public async Task<ActionResult<IEnumerable<ServiceSetupDto>>> GetServiceSetup()
+        public async Task<PagedList<ServiceSetupDto>> GetServiceSetup([FromQuery] PaginationModel paginationModel)
         {
-            var result = await _serviceSetupService.GetServiceSetupAsync();
-            return Ok(result);
+            var result = await _serviceSetupService.GetServiceSetupAsync(paginationModel);
+            Response.AddPaginationHeader(result.CurrentPage, result.PageSize, result.TotalCount, result.TotalPages);
+            return result;
         }
         /// <summary>
         /// Api to Get Web Conten tByPageName for website.

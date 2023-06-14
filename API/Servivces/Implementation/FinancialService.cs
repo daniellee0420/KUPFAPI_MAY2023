@@ -2338,9 +2338,9 @@ namespace API.Servivces.Implementation
                                 e.TenentId == tenentId &&
                                 e.LocationId == locationId &&
                                 ap.LocationId == locationId &&
-                                ap.SerApprovalId == 1 && // Manager Role Id
-                                ap.DisplayPERIOD_CODE <= periodCode &&
-                                ap.DisplayPERIOD_CODE >= periodCode
+                                ap.SerApprovalId == 1 //&& // Manager Role Id
+                               // ap.DisplayPERIOD_CODE <= periodCode &&
+                               // ap.DisplayPERIOD_CODE >= periodCode
                                 select new ManagerApprovalDto
                                 {
                                     TransId = (int)ap.Mytransid,
@@ -2364,6 +2364,18 @@ namespace API.Servivces.Implementation
                                     Active = ap.Active,
                                     CrupId = (long)e.CRUP_ID
                                 }).OrderByDescending(c => c.TransId).AsQueryable();
+                    if (!string.IsNullOrEmpty(paginationModel.Query))
+                    {
+                        data = data.Where(u =>
+                        u.Pfid.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                         u.TransId.ToString().ToLower().Contains(paginationModel.Query.ToLower()) ||
+                        u.ServiceName.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                        u.EmpCidNum.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                        u.EnglishName.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                        u.ArabicName.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                        u.EmployeeId.ToLower().Contains(paginationModel.Query.ToLower())
+                            );
+                    }
                     return await PagedList<ManagerApprovalDto>.CreateAsync(data, paginationModel.PageNumber, paginationModel.PageSize);
 
 
@@ -2380,8 +2392,8 @@ namespace API.Servivces.Implementation
                                 e.LocationId == locationId &&
                                 ap.LocationId == locationId &&
                                 //ap.SerApprovalId == 1 && // Manager Role Id
-                                ap.DisplayPERIOD_CODE <= periodCode &&
-                                ap.DisplayPERIOD_CODE >= periodCode &&
+                               // ap.DisplayPERIOD_CODE <= periodCode &&
+                               // ap.DisplayPERIOD_CODE >= periodCode &&
                                 ap.Active == true
                                 select new ManagerApprovalDto
                                 {
@@ -2725,6 +2737,19 @@ namespace API.Servivces.Implementation
                                 DraftDate2 = hd.DraftDate2,
                                 IsDraftCreated = hd.IsDraftCreated
                             }).AsQueryable();
+                if (!string.IsNullOrEmpty(paginationModel.Query))
+                {
+                    data = data.Where(u =>
+                    u.Pfid.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                      u.TransId.ToString().ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.ServiceName.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.EmpCidNum.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.EnglishName.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.ArabicName.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.MobileNumber.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.EmployeeId.ToLower().Contains(paginationModel.Query.ToLower())
+                        );
+                }
                 return await PagedList<CashierApprovalDto>.CreateAsync(data, paginationModel.PageNumber, paginationModel.PageSize);
 
             }
@@ -3319,6 +3344,20 @@ namespace API.Servivces.Implementation
                                 CrupId = (long)e.CRUP_ID,
                                 EntryDate = hd.Entrydate
                             }).OrderByDescending(c => c.TransId).AsQueryable();
+                if (!string.IsNullOrEmpty(paginationModel.Query))
+                {
+                    data = data.Where(u =>
+                    u.Pfid.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                      u.TransId.ToString().ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.ServiceName.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.EmpCidNum.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.EnglishName.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.ArabicName.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.MobileNumber.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    //u.PeriodCode.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                    u.EmployeeId.ToLower().Contains(paginationModel.Query.ToLower())
+                        );
+                }
 
                 return await PagedList<CashierApprovalDto>.CreateAsync(data, paginationModel.PageNumber, paginationModel.PageSize);
 

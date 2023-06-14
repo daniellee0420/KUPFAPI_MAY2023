@@ -5,6 +5,12 @@ using System.Threading.Tasks;
 
 namespace API.DTOs.RefTable
 {
+    public class RefTableDtoListObj
+    {
+        public int TotalRecords { get; set; }
+        public List<RefTableDto> RefTableDto { get; set; }
+        
+    }
     public class RefTableDto
     {
         public int TenentId { get; set; }        

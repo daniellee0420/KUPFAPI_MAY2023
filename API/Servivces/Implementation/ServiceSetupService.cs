@@ -1,4 +1,5 @@
 ﻿using API.DTOs;
+using API.Helpers;
 using API.Models;
 using API.Servivces.Interfaces;
 using AutoMapper;
@@ -143,7 +144,7 @@ namespace API.Servivces.Implementation
             var data = _mapper.Map<ServiceSetupDto>(result);
             return data;
         }
-        public Task<List<ServiceSetupDto>> GetServiceSetupAsync()
+        public async Task<PagedList<ServiceSetupDto>> GetServiceSetupAsync(PaginationModel paginationModel)
         {
             var result = (from r in _context.Reftables
                           join s in _context.ServiceSetups
@@ -164,8 +165,17 @@ namespace API.Servivces.Implementation
                               OfferImage= s.OfferImage,
                               ServiceIconMob = s.ServiceIconMob,
                               ServiceIconWeb= s.ServiceIconWeb,
-                          }).ToListAsync();
-            return result;
+                          }).AsQueryable();
+            if (!string.IsNullOrEmpty(paginationModel.Query))
+            {
+                result = result.Where(u =>
+                u.ServiceName1.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                u.ServiceName2.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                u.ServiceTypeName.ToLower().Contains(paginationModel.Query.ToLower())  
+                    );
+            }
+
+            return await PagedList<ServiceSetupDto>.CreateAsync(result, paginationModel.PageNumber, paginationModel.PageSize);
         }
 
         public async Task<ReturnWebContent> GetWebContentByPageNameAsync(string pageName)

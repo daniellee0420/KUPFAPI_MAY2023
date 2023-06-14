@@ -321,10 +321,21 @@ namespace API.Servivces.Implementation.DetailedEmployee
                                 CreatedDate = e.DateTime
                             }).OrderByDescending(c => c.CreatedDate)
                         .AsQueryable();
-
+                if (!string.IsNullOrEmpty(paginationParams.Query))
+                {
+                    data = data.Where(u => u.RefName1.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.RefName2.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.MobileNumber.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.Pfid.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.EmpCidNum.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.EnglishName.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.ArabicName.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.EmployeeId.ToString().Contains(paginationParams.Query.ToLower())
+                        );
+                }
                 return await PagedList<DetailedEmployeeDto>.CreateAsync(data, paginationParams.PageNumber, paginationParams.PageSize);
             }
-            else
+            else if(filterVal == 12)
             {
                 var data = (from e in _context.DetailedEmployees
                             join r in _context.Reftables
@@ -344,8 +355,54 @@ namespace API.Servivces.Implementation.DetailedEmployee
                                 CreatedDate = e.DateTime
                             }).OrderByDescending(c => c.CreatedDate)
                         .AsQueryable();
+                if (!string.IsNullOrEmpty(paginationParams.Query))
+                {
+                    data = data.Where(u => u.RefName1.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.RefName2.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.MobileNumber.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.Pfid.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.EmpCidNum.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.EnglishName.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.ArabicName.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.EmployeeId.ToString().Contains(paginationParams.Query.ToLower())
+                        );
+                }
+                return await PagedList<DetailedEmployeeDto>.CreateAsync(data, paginationParams.PageNumber, paginationParams.PageSize);
+            }
+            else
+            {
+                var data = (from e in _context.DetailedEmployees
+                            join r in _context.Reftables
+                         on e.Department equals r.Refid
+                            where r.Reftype == "KUPF" && r.Refsubtype == "Department"
+                            select new DetailedEmployeeDto
+                            {
+                                EmpCidNum = e.EmpCidNum,
+                                Pfid = e.Pfid,
+                                EmployeeId = e.EmployeeId,
+                                MobileNumber = e.MobileNumber,
+                                EnglishName = e.EnglishName,
+                                ArabicName = e.ArabicName,
+                                RefName1 = r.Refname1,
+                                RefName2 = r.Refname2,
+                                CreatedDate = e.DateTime
+                            }).OrderByDescending(c => c.CreatedDate)
+                     .AsQueryable();
+                if (!string.IsNullOrEmpty(paginationParams.Query))
+                {
+                    data = data.Where(u => u.RefName1.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.RefName2.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.MobileNumber.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.Pfid.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.EmpCidNum.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.EnglishName.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.ArabicName.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                    u.EmployeeId.ToString().Contains(paginationParams.Query.ToLower())
+                        );
+                }
 
                 return await PagedList<DetailedEmployeeDto>.CreateAsync(data, paginationParams.PageNumber, paginationParams.PageSize);
+
             }
 
         }
