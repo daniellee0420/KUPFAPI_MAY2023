@@ -50,30 +50,6 @@ namespace API.Servivces.Implementation
             {
                 if (_context != null)
                 {
-                    if (transactionHdDto.ServiceSubTypeId == 23)
-                    {
-                        return new FinancialServiceResponse
-                        {
-                            IsSuccess = false,
-                            Message = "Financial Loan General Not  Available"
-                        };
-                    }
-                    if (transactionHdDto.ServiceSubTypeId == 13)
-                    {
-                        return new FinancialServiceResponse
-                        {
-                            IsSuccess = false,
-                            Message = "Consumption Loan Not  Available"
-                        };
-                    }
-                    if (transactionHdDto.ServiceSubTypeId == 14)
-                    {
-                        return new FinancialServiceResponse
-                        {
-                            IsSuccess = false,
-                            Message = "Medical Loan Not  Available"
-                        };
-                    }
                     FinancialServiceResponse response = new FinancialServiceResponse();
                     var newTransaction = _mapper.Map<TransactionHd>(transactionHdDto);
                     string pfid = string.Empty;
@@ -230,95 +206,61 @@ namespace API.Servivces.Implementation
                         #endregion
 
 
-                        #region Save Into TransactionHDDApprovalDetails
-                        // int srId = 0;
-                        // int MyTransId = (int)_context.TransactionHds.FromSqlRaw("select ISNULL(MAX(MYTRANSID),0) as MyTransId from TransactionHD where employeeID='" + newTransaction.EmployeeId + "'").Select(c => c.Mytransid).FirstOrDefault();
-                        //if (MyTransId > 0)
-                        //{
-                        //    int mySeq = (int)_context.TransactionHddapprovalDetails.FromSqlRaw("SELECT ISNULL(MAX(mySeq),0)+1 AS mySeq FROM TransactionHddapprovalDetails Where Mytransid ='" + MyTransId + "'").Select(c => c.mySeq).FirstOrDefault();
-                        //    //newTransaction.Mytransid = MyTransId;
-                        //    srId = mySeq;
-                        //}
-
-
+                        /// check Employee membership  subscription
+                        var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
+                        ////    check service approvals
                         var serviceApprovals = _context.ServiceSetups.Where(p => p.ServiceType == newTransaction.ServiceTypeId && p.ServiceSubType == newTransaction.ServiceSubTypeId).FirstOrDefault();
-                        if (serviceApprovals != null)
+                        ///// membership duration period
+                        int totalMonths = CommonMethods.CalculateMembershipDuration((DateTime)employeeMembership.JoinedDate);
+                        // Get termination info
+                        var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
+                        // Get employee status
+                        var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
+                        // Get Subscription Status
+                        var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
+
+                        #region check pending loan amount
+                        // To make sure Employee dont have any due Loan amount
+                        var dueLoanamount = (from hd in _context.TransactionHds
+                                             join dt in _context.TransactionDts
+                                             on hd.Mytransid equals dt.Mytransid
+                                             where hd.EmployeeId == transactionHdDto.EmployeeId &&
+                                             hd.TenentId == transactionHdDto.TenentId &&
+                                             hd.LocationId == transactionHdDto.LocationId &&
+                                             hd.ServiceTypeId == transactionHdDto.ServiceTypeId && hd.ServiceSubTypeId == transactionHdDto.ServiceSubTypeId
+                                             select new { hd, dt }).Count();
+                        // To make sure Employee is not sponsored for the pending Loan Amount
+                        var pendingLoanAmount = (from hd in _context.TransactionHds
+                                                 join dt in _context.TransactionDts
+                                                 on hd.Mytransid equals dt.Mytransid
+                                                 where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
+                                                 hd.TenentId == transactionHdDto.TenentId &&
+                                                 hd.LocationId == transactionHdDto.LocationId &&
+                                                 hd.ServiceTypeId == transactionHdDto.ServiceSubTypeId && hd.ServiceSubTypeId == transactionHdDto.ServiceSubTypeId
+                                                 select new  { hd, dt }).Count();
+                        if (dueLoanamount != 0)
                         {
-                            List<string> myService = new List<string>
+                            return new FinancialServiceResponse
                             {
-                                serviceApprovals.SerApproval1,
-                                serviceApprovals.SerApproval2,
-                                serviceApprovals.SerApproval3,
-                                serviceApprovals.SerApproval4,
-                                serviceApprovals.SerApproval5,
-                                serviceApprovals.SerApproval6
+                                IsSuccess = false,
+                                Message = "Employee have due Loan amount"
                             };
-                            if (serviceApprovals != null)
-                            {
-                                myService.RemoveAll(item => item == null);
-                                int srId = 0;
-                                for (int i = 0; i < myService.Count; i++) // myservice is one active  = true else false.
-                                {
-                                    var transactionHddApprovalsDto = new TransactionHddapprovalDetailDto()
-                                    {
-                                        TenentId = newTransaction.TenentId,
-                                        Mytransid = newTransaction.Mytransid,
-                                        LocationId = (int)newTransaction.LocationId,
-                                        SerApprovalId = srId + 1,
-                                        SerApproval = myService[i].ToString(),
-                                        EmployeeId = newTransaction.EmployeeId,
-                                        ServiceType = newTransaction.ServiceTypeId,
-                                        ServiceSubType = newTransaction.ServiceSubTypeId,
-                                        ServiceId = srId + 1,
-                                        MasterServiceId = maxSwitch,
-                                        ApprovalDate = null,
-                                        RejectionType = null,
-                                        RejectionRemarks = null,
-                                        AttachId = attachId,
-                                        Status = "ManagerApproval",
-                                        Userid = newTransaction.Userid,
-                                        Entrydate = DateTime.Now,
-                                        Entrytime = DateTime.Now,
-                                        Updttime = DateTime.Now,
-                                        ApprovalRemarks = "BySystem",
-                                        mySeq = srId + 1,
-                                        DisplayPERIOD_CODE = transactionHdDto.PeriodCode
-
-                                    };
-                                    // We will set active first recored and other will by inactive by default.
-                                    if (i == 0)
-                                    {
-                                        transactionHddApprovalsDto.Active = true;
-                                    }
-                                    else
-                                    {
-                                        transactionHddApprovalsDto.Active = false;
-                                    }
-
-                                    var transactionHddApprovals = _mapper.Map<TransactionHddapprovalDetail>(transactionHddApprovalsDto);
-                                    transactionHddApprovals.MasterServiceId = maxSwitch;
-                                    await _context.TransactionHddapprovalDetails.AddAsync(transactionHddApprovals);
-                                    srId++;
-                                }
-                            }
                         }
-
+                        else if (pendingLoanAmount != 0)
+                        {
+                            return new FinancialServiceResponse
+                            {
+                                IsSuccess = false,
+                                Message = "Employee is sponsored for the pending Loan Amount"
+                            };
+                        }
                         #endregion
-
+                      
                         if (transactionHdDto.ServiceTypeId == 1) // Membership Subscribe - اشتراك العضوية  
                         {
                             #region Membership Subscriber ...
                             // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-                            //
                             var existingSubscriber = _context.TransactionHds.Where(c => c.EmployeeId == newTransaction.EmployeeId).FirstOrDefault();
-
-                            // Get employee status
-                            var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                            // Get Subscription Status
-                            var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
                             if (existingSubscriber != null)
                             {
                                 return new FinancialServiceResponse
@@ -327,7 +269,6 @@ namespace API.Servivces.Implementation
                                     Message = "Duplicate subscriber"
                                 };
                             }
-
                             newTransaction.MasterServiceId = maxSwitch;
                             newTransaction.Active = false;
                             newTransaction.AttachId = attachId;
@@ -339,30 +280,24 @@ namespace API.Servivces.Implementation
                                 newTransaction.SerApproval1 = serviceApprovals.SerApproval1;
                                 newTransaction.ApprovalBy1 = serviceApprovals.ApprovalBy1;
                                 newTransaction.ApprovedDate1 = serviceApprovals.ApprovedDate1;
-
                                 newTransaction.SerApproval2 = serviceApprovals.SerApproval2;
                                 newTransaction.ApprovalBy2 = serviceApprovals.ApprovalBy2;
                                 newTransaction.ApprovedDate2 = serviceApprovals.ApprovedDate2;
-
                                 newTransaction.SerApproval3 = serviceApprovals.SerApproval3;
                                 newTransaction.ApprovalBy3 = serviceApprovals.ApprovalBy3;
                                 newTransaction.ApprovedDate3 = serviceApprovals.ApprovedDate3;
-
                                 newTransaction.SerApproval4 = serviceApprovals.SerApproval4;
                                 newTransaction.ApprovalBy4 = serviceApprovals.ApprovalBy4;
                                 newTransaction.ApprovedDate4 = serviceApprovals.ApprovedDate4;
-
                                 newTransaction.SerApproval5 = serviceApprovals.SerApproval5;
                                 newTransaction.ApprovalBy5 = serviceApprovals.ApprovalBy5;
                                 newTransaction.ApprovedDate5 = serviceApprovals.ApprovedDate5;
-
                                 newTransaction.SerApproval6 = serviceApprovals.SerApproval6;
                                 newTransaction.ApprovalBy6 = serviceApprovals.ApprovalBy6;
                                 newTransaction.ApprovedDate6 = serviceApprovals.ApprovedDate6;
                             }
 
                             await _context.TransactionHds.AddAsync(newTransaction);
-
                             var periodCode = CommonMethods.CreateMemberShipPeriodCode();
                             foreach (var item in periodCode)
                             {
@@ -398,7 +333,6 @@ namespace API.Servivces.Implementation
                                 await _context.TransactionDts.AddAsync(transactionDt);
                                 myId++;
                             }
-
                             // Update detailedEmployee if termination is true need to update the detailed employee...
                             employeeMembership.MembershipJoiningDate = newTransaction.InstallmentsBegDate;
                             employeeMembership.SubscribedDate = newTransaction.InstallmentsBegDate;
@@ -415,447 +349,25 @@ namespace API.Servivces.Implementation
                         else if (transactionHdDto.ServiceTypeId == 5) // End of Service
                         {
                             #region EndOfService-Retirement
-
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId != 1 || hd.ServiceTypeId != 8
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId != 1 || hd.ServiceTypeId != 8
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
+                            var discountValues = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Withdrawals").ToList();
+                            // Next Due Date for payment...
+                            DateTime nextDueDate = DateTime.Now.AddYears(1);
+                            decimal payableAmount = 0M;
+                            decimal payableAmountAfterOneYear = 0M;
+                            for (int i = 0; i < discountValues.Count; i++)
                             {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-                                int totalMonths = CommonMethods.CalculateMembershipDuration((DateTime)employeeMembership.SubscribedDate);
-                                var discountValues = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Withdrawals").ToList();
-
-                                // Next Due Date for payment...
-                                DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                //
-                                decimal payableAmount = 0M;
-                                //
-                                decimal payableAmountAfterOneYear = 0M;
-
-                                for (int i = 0; i < discountValues.Count; i++)
-                                {
-                                    if (totalMonths >= Convert.ToInt32(discountValues[i].Switch3)
-                                        && totalMonths <= discountValues[i].Switch4)
-                                    {
-                                        // Add record to TransactionDT
-                                        //newTransaction.Mytransid = CommonMethods.CreateEmployeeId();
-                                        newTransaction.MasterServiceId = maxSwitch;
-                                        newTransaction.Active = false;
-                                        newTransaction.AllowDiscountDefault = transactionHdDto.AllowDiscountDefault;
-                                        await _context.TransactionHds.AddAsync(newTransaction);
-                                        await _context.SaveChangesAsync();
-
-                                        // To be paid today
-                                        payableAmount = ((((decimal)transactionHdDto.Totamt * totalMonths) / 100) * Convert.ToInt32(discountValues[i].Switch1));
-
-                                        var data = new TransactionDtDto
-                                        {
-                                            TenentId = transactionHdDto.TenentId,
-                                            LocationId = transactionHdDto.LocationId,
-                                            Mytransid = newTransaction.Mytransid,
-                                            Myid = myId,
-                                            EmployeeId = transactionHdDto.EmployeeId,
-                                            InstallmentNumber = 1,//Create a method to create subscription and this should be starts from currnet month + next year....
-                                            AttachId = 0,
-                                            PeriodCode = GetPeriodCode(),// comes from TBLPeriods table.
-                                            InstallmentAmount = payableAmount,
-                                            ReceivedAmount = 0,
-                                            PendingAmount = transactionHdDto.InstallmentAmount,
-                                            DiscountAmount = 0,
-                                            DiscountReference = string.Empty,
-                                            UniversityBatchNo = string.Empty,
-                                            ReceivedDate = null,
-                                            EffectedAccount = null,
-                                            OtherReference = null,
-                                            Activityid = null,
-                                            CrupId = 1,
-                                            Glpost = "1",
-                                            Glpost1 = null,
-                                            Glpostref = "1",
-                                            Glpostref1 = "1",
-                                            Active = true,
-                                            Switch1 = null,
-                                            DelFlag = null,
-                                            InstallmentsBegDate = transactionHdDto.InstallmentsBegDate,
-                                            UntilMonth = transactionHdDto.UntilMonth,
-                                            Userid = newTransaction.Userid,
-                                            Entrydate = DateTime.Now
-                                        };
-                                        var transactionDt = _mapper.Map<TransactionDt>(data);
-                                        newTransaction.Active = false;
-                                        await _context.TransactionDts.AddAsync(transactionDt);
-                                        await _context.SaveChangesAsync();
-                                        _context.ChangeTracker.Clear();
-
-                                        payableAmount = ((((decimal)transactionHdDto.Totamt * totalMonths) / 100) * Convert.ToInt32(discountValues[i].Switch2));
-                                        //
-                                        payableAmountAfterOneYear = payableAmount;
-
-                                        data = new TransactionDtDto
-                                        {
-                                            TenentId = transactionHdDto.TenentId,
-                                            LocationId = transactionHdDto.LocationId,
-                                            Mytransid = newTransaction.Mytransid,
-                                            Myid = myId + 1,
-                                            EmployeeId = transactionHdDto.EmployeeId,
-                                            InstallmentNumber = 1,//Create a method to create subscription and this should be starts from currnet month + next year....
-                                            AttachId = 0,
-                                            PeriodCode = GetPeriodCode(),// comes from TBLPeriods table.
-                                            InstallmentAmount = payableAmount,
-                                            ReceivedAmount = 0,
-                                            PendingAmount = transactionHdDto.InstallmentAmount,
-                                            DiscountAmount = 0,
-                                            DiscountReference = string.Empty,
-                                            UniversityBatchNo = string.Empty,
-                                            ReceivedDate = null,
-                                            EffectedAccount = null,
-                                            OtherReference = null,
-                                            Activityid = null,
-                                            CrupId = 1,
-                                            Glpost = "1",
-                                            Glpost1 = null,
-                                            Glpostref = "1",
-                                            Glpostref1 = "1",
-                                            Active = true,
-                                            Switch1 = null,
-                                            DelFlag = null,
-                                            InstallmentsBegDate = transactionHdDto.InstallmentsBegDate,
-                                            UntilMonth = transactionHdDto.UntilMonth,
-                                            Userid = newTransaction.Userid,
-                                            Entrydate = DateTime.Now
-                                        };
-                                        transactionDt = _mapper.Map<TransactionDt>(data);
-                                        await _context.TransactionDts.AddAsync(transactionDt);
-                                        await _context.SaveChangesAsync();
-                                        _context.ChangeTracker.Clear();
-
-                                        //
-                                        int lastDiscount = Convert.ToInt32(discountValues[i].Switch1) - Convert.ToInt32(discountValues[i].Switch2);
-                                        //
-                                        payableAmount = ((decimal)transactionHdDto.Totamt * totalMonths / 100 * lastDiscount);
-                                        //
-                                        data = new TransactionDtDto
-                                        {
-                                            TenentId = transactionHdDto.TenentId,
-                                            LocationId = transactionHdDto.LocationId,
-                                            Mytransid = newTransaction.Mytransid,
-                                            Myid = myId + 2,
-                                            EmployeeId = transactionHdDto.EmployeeId,
-                                            InstallmentNumber = 1,
-                                            AttachId = 0,
-                                            PeriodCode = GetPeriodCode(),
-                                            InstallmentAmount = payableAmount,
-                                            ReceivedAmount = 0,
-                                            PendingAmount = transactionHdDto.InstallmentAmount,
-                                            DiscountAmount = 0,
-                                            DiscountReference = string.Empty,
-                                            UniversityBatchNo = string.Empty,
-                                            ReceivedDate = null,
-                                            EffectedAccount = null,
-                                            OtherReference = null,
-                                            Activityid = null,
-                                            CrupId = 1,
-                                            Glpost = "1",
-                                            Glpost1 = null,
-                                            Glpostref = "1",
-                                            Glpostref1 = "1",
-                                            Active = true,
-                                            Switch1 = null,
-                                            DelFlag = null,
-                                            InstallmentsBegDate = transactionHdDto.InstallmentsBegDate,
-                                            UntilMonth = transactionHdDto.UntilMonth,
-                                            Userid = newTransaction.Userid,
-                                            Entrydate = DateTime.Now
-                                        };
-                                        transactionDt = _mapper.Map<TransactionDt>(data);
-                                        await _context.TransactionDts.AddAsync(transactionDt);
-                                        await _context.SaveChangesAsync();
-                                        _context.ChangeTracker.Clear();
-
-                                        // Stop execution...
-                                        break;
-
-                                    }
-                                }
-                            }
-
-                            #endregion
-                        }
-
-                        else if (transactionHdDto.ServiceTypeId == 22) // Financial Loan -  قروض مالية
-                        {
-                            #region Financial Loan General
-                            if (transactionHdDto.ServiceSubTypeId == 23)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Financial Loan General Not  Available"
-                                };
-                            }
-                            #endregion
-
-                            #region Hajj Loan
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-                            if (transactionHdDto.ServiceSubTypeId == 5)
-                            {
-                                //// To make sure Employee dont have any due Loan amount
-                                //var dueLoanamount = (from hd in _context.TransactionHds
-                                //                     join dt in _context.TransactionDts
-                                //                     on hd.Mytransid equals dt.Mytransid
-                                //                     where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                //                     hd.TenentId == transactionHdDto.TenentId &&
-                                //                     hd.LocationId == transactionHdDto.LocationId &&
-                                //                     hd.ServiceTypeId != 1 || hd.ServiceTypeId != 8
-                                //                     select new
-                                //                     {
-                                //                         hd,
-                                //                         dt
-                                //                     }).Where(x => x.hd.EmployeeId == transactionHdDto.EmployeeId).Count();
-                                //// To make sure Employee is not sponsored for the pending Loan Amount
-                                //var pendingLoanAmount = (from hd in _context.TransactionHds
-                                //                         join dt in _context.TransactionDts
-                                //                         on hd.Mytransid equals dt.Mytransid
-                                //                         where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                //                         hd.TenentId == transactionHdDto.TenentId &&
-                                //                         hd.LocationId == transactionHdDto.LocationId &&
-                                //                         hd.ServiceTypeId != 1 || hd.ServiceTypeId != 8
-                                //                         select new
-                                //                         {
-                                //                             hd,
-                                //                             dt
-                                //                         }).Where(x => x.hd.EmployeeId == transactionHdDto.EmployeeId).Count();
-                                //if (dueLoanamount != 0)
-                                //{
-                                //    return new FinancialServiceResponse
-                                //    {
-                                //        IsSuccess = false,
-                                //        Message = "Employee have due Loan amount"
-                                //    };
-                                //}
-                                //else if (pendingLoanAmount != 0)
-                                //{
-                                //    return new FinancialServiceResponse
-                                //    {
-                                //        IsSuccess = false,
-                                //        Message = "Employee is sponsored for the pending Loan Amount"
-                                //    };
-                                //}
-                                //else
-                                //{
-                                //
-                                int totalMonths = CommonMethods.CalculateMembershipDuration((DateTime)employeeMembership.JoinedDate);
-                                if (totalMonths < 6)
-                                {
-                                    return new FinancialServiceResponse
-                                    {
-                                        IsSuccess = false,
-                                        Message = "Minimum 6 months"
-                                    };
-                                }
-                                // Next Due Date for payment...
-                                DateTime nextDueDate = DateTime.Now;
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                // Add record to TransactionHD
-                                newTransaction.MasterServiceId = maxSwitch;
-                                newTransaction.Active = false;
-                                newTransaction.AllowDiscountDefault = transactionHdDto.AllowDiscountDefault;
-                                newTransaction.ServiceId = (int)newTransaction.Mytransid;
-                                await _context.TransactionHds.AddAsync(newTransaction);
-
-                                myId = 1;
-                                // Add record to TransactionDT
-                                var data = new TransactionDtDto
-                                {
-                                    TenentId = transactionHdDto.TenentId,
-                                    LocationId = transactionHdDto.LocationId,
-                                    Mytransid = newTransaction.Mytransid,
-                                    Myid = myId,
-                                    EmployeeId = transactionHdDto.EmployeeId,
-                                    InstallmentNumber = 1,//Create a method to create subscription and this should be starts from currnet month + next year....
-                                    AttachId = 0,
-                                    PeriodCode = GetPeriodCode(),// comes from TBLPeriods table.
-                                    InstallmentAmount = newTransaction.InstallmentAmount,
-                                    ReceivedAmount = 0,
-                                    PendingAmount = transactionHdDto.InstallmentAmount,
-                                    DiscountAmount = 0,
-                                    DiscountReference = string.Empty,
-                                    UniversityBatchNo = string.Empty,
-                                    ReceivedDate = null,
-                                    EffectedAccount = null,
-                                    OtherReference = null,
-                                    Activityid = null,
-                                    InstallmentsBegDate = transactionHdDto.InstallmentsBegDate,
-                                    UntilMonth = transactionHdDto.UntilMonth,
-                                    Userid = newTransaction.Userid,
-                                    Entrydate = DateTime.Now
-                                };
-                                var transactionDt = _mapper.Map<TransactionDt>(data);
-                                pfid = employeeMembership.Pfid;
-                                await _context.TransactionDts.AddAsync(transactionDt);
-                                await _context.SaveChangesAsync();
-                                _context.ChangeTracker.Clear();
-                                //}
-                            }
-                            #endregion
-
-                            #region Consumption Loan
-                            if (transactionHdDto.ServiceSubTypeId == 13)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Consumption Loan Not  Available"
-                                };
-                            }
-                            #endregion
-
-                            #region Medical Loan
-                            if (transactionHdDto.ServiceSubTypeId == 14)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Medical Loan Not  Available"
-                                };
-                            }
-                            #endregion
-
-                        }
-
-                        else if (transactionHdDto.ServiceTypeId == 2) // Financial Aids... 
-                        {
-                            #region Financial Aids...
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 2 || hd.ServiceTypeId == 2
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 2 || hd.ServiceTypeId == 2
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-
-                                // Next Due Date for payment...
-                                DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                // Add record to TransactionHD
-                                newTransaction.MasterServiceId = maxSwitch;
-                                newTransaction.Active = false;
-                                newTransaction.AllowDiscountDefault = transactionHdDto.AllowDiscountDefault;
-                                await _context.TransactionHds.AddAsync(newTransaction);
-                                await _context.SaveChangesAsync();
-                                myId = 1;
-                                for (int i = 0; i < transactionHdDto.Totinstallments; i++)
+                                if (totalMonths >= Convert.ToInt32(discountValues[i].Switch3)
+                                    && totalMonths <= discountValues[i].Switch4)
                                 {
                                     // Add record to TransactionDT
+                                    //newTransaction.Mytransid = CommonMethods.CreateEmployeeId();
+                                    newTransaction.MasterServiceId = maxSwitch;
+                                    newTransaction.Active = false;
+                                    newTransaction.AllowDiscountDefault = transactionHdDto.AllowDiscountDefault;
+                                    await _context.TransactionHds.AddAsync(newTransaction);
+                                    await _context.SaveChangesAsync();
+                                    // To be paid today
+                                    payableAmount = ((((decimal)transactionHdDto.Totamt * totalMonths) / 100) * Convert.ToInt32(discountValues[i].Switch1));
                                     var data = new TransactionDtDto
                                     {
                                         TenentId = transactionHdDto.TenentId,
@@ -866,7 +378,7 @@ namespace API.Servivces.Implementation
                                         InstallmentNumber = 1,//Create a method to create subscription and this should be starts from currnet month + next year....
                                         AttachId = 0,
                                         PeriodCode = GetPeriodCode(),// comes from TBLPeriods table.
-                                        InstallmentAmount = newTransaction.InstallmentAmount,
+                                        InstallmentAmount = payableAmount,
                                         ReceivedAmount = 0,
                                         PendingAmount = transactionHdDto.InstallmentAmount,
                                         DiscountAmount = 0,
@@ -890,84 +402,232 @@ namespace API.Servivces.Implementation
                                         Entrydate = DateTime.Now
                                     };
                                     var transactionDt = _mapper.Map<TransactionDt>(data);
+                                    newTransaction.Active = false;
                                     await _context.TransactionDts.AddAsync(transactionDt);
                                     await _context.SaveChangesAsync();
                                     _context.ChangeTracker.Clear();
-                                    myId++;
+
+                                    payableAmount = ((((decimal)transactionHdDto.Totamt * totalMonths) / 100) * Convert.ToInt32(discountValues[i].Switch2));
+                                    //
+                                    payableAmountAfterOneYear = payableAmount;
+                                    data = new TransactionDtDto
+                                    {
+                                        TenentId = transactionHdDto.TenentId,
+                                        LocationId = transactionHdDto.LocationId,
+                                        Mytransid = newTransaction.Mytransid,
+                                        Myid = myId + 1,
+                                        EmployeeId = transactionHdDto.EmployeeId,
+                                        InstallmentNumber = 1,//Create a method to create subscription and this should be starts from currnet month + next year....
+                                        AttachId = 0,
+                                        PeriodCode = GetPeriodCode(),// comes from TBLPeriods table.
+                                        InstallmentAmount = payableAmount,
+                                        ReceivedAmount = 0,
+                                        PendingAmount = transactionHdDto.InstallmentAmount,
+                                        DiscountAmount = 0,
+                                        DiscountReference = string.Empty,
+                                        UniversityBatchNo = string.Empty,
+                                        ReceivedDate = null,
+                                        EffectedAccount = null,
+                                        OtherReference = null,
+                                        Activityid = null,
+                                        CrupId = 1,
+                                        Glpost = "1",
+                                        Glpost1 = null,
+                                        Glpostref = "1",
+                                        Glpostref1 = "1",
+                                        Active = true,
+                                        Switch1 = null,
+                                        DelFlag = null,
+                                        InstallmentsBegDate = transactionHdDto.InstallmentsBegDate,
+                                        UntilMonth = transactionHdDto.UntilMonth,
+                                        Userid = newTransaction.Userid,
+                                        Entrydate = DateTime.Now
+                                    };
+                                    transactionDt = _mapper.Map<TransactionDt>(data);
+                                    await _context.TransactionDts.AddAsync(transactionDt);
+                                    await _context.SaveChangesAsync();
+                                    _context.ChangeTracker.Clear();
+                                    //
+                                    int lastDiscount = Convert.ToInt32(discountValues[i].Switch1) - Convert.ToInt32(discountValues[i].Switch2);
+                                    //
+                                    payableAmount = ((decimal)transactionHdDto.Totamt * totalMonths / 100 * lastDiscount);
+                                    //
+                                    data = new TransactionDtDto
+                                    {
+                                        TenentId = transactionHdDto.TenentId,
+                                        LocationId = transactionHdDto.LocationId,
+                                        Mytransid = newTransaction.Mytransid,
+                                        Myid = myId + 2,
+                                        EmployeeId = transactionHdDto.EmployeeId,
+                                        InstallmentNumber = 1,
+                                        AttachId = 0,
+                                        PeriodCode = GetPeriodCode(),
+                                        InstallmentAmount = payableAmount,
+                                        ReceivedAmount = 0,
+                                        PendingAmount = transactionHdDto.InstallmentAmount,
+                                        DiscountAmount = 0,
+                                        DiscountReference = string.Empty,
+                                        UniversityBatchNo = string.Empty,
+                                        ReceivedDate = null,
+                                        EffectedAccount = null,
+                                        OtherReference = null,
+                                        Activityid = null,
+                                        CrupId = 1,
+                                        Glpost = "1",
+                                        Glpost1 = null,
+                                        Glpostref = "1",
+                                        Glpostref1 = "1",
+                                        Active = true,
+                                        Switch1 = null,
+                                        DelFlag = null,
+                                        InstallmentsBegDate = transactionHdDto.InstallmentsBegDate,
+                                        UntilMonth = transactionHdDto.UntilMonth,
+                                        Userid = newTransaction.Userid,
+                                        Entrydate = DateTime.Now
+                                    };
+                                    transactionDt = _mapper.Map<TransactionDt>(data);
+                                    await _context.TransactionDts.AddAsync(transactionDt);
+                                    await _context.SaveChangesAsync();
+                                    _context.ChangeTracker.Clear();
+                                    // Stop execution...
+                                    break;
                                 }
-                                //// Update detailedEmployee if termination is true need to update the detailed employee...
-                                //employeeMembership.Subscription_status = empStatus.Refid;
-                                //employeeMembership.EmpStatus = subscriptionStatus.Refid;
-                                //employeeMembership.Pfid = newTransaction.PFID;
-                                //employeeMembership.SubscriptionDate = DateTime.Now;
-                                //_context.DetailedEmployees.Update(employeeMembership);
-                                //await _context.SaveChangesAsync();
+
                             }
+
+                            #endregion
+                        }
+
+                        else if (transactionHdDto.ServiceTypeId == 22) // Financial Loan -  قروض مالية
+                        {
+                            #region Financial Loan General, Consumption Loan, Medical Loan, Hajj Loan
+                            if (transactionHdDto.ServiceSubTypeId == 5)  //// Hajj Loan
+                            {
+                                if (totalMonths < 6)
+                                {
+                                    return new FinancialServiceResponse
+                                    {
+                                        IsSuccess = false,
+                                        Message = "Minimum 6 months"
+                                    };
+                                }
+                            }
+                            // Next Due Date for payment...
+                            DateTime nextDueDate = DateTime.Now;
+ 
+                            // Add record to TransactionHD
+                            newTransaction.MasterServiceId = maxSwitch;
+                            newTransaction.Active = false;
+                            newTransaction.AllowDiscountDefault = transactionHdDto.AllowDiscountDefault;
+                            newTransaction.ServiceId = (int)newTransaction.Mytransid;
+                            await _context.TransactionHds.AddAsync(newTransaction);
+
+                            myId = 1;
+                            // Add record to TransactionDT
+                            var data = new TransactionDtDto
+                            {
+                                TenentId = transactionHdDto.TenentId,
+                                LocationId = transactionHdDto.LocationId,
+                                Mytransid = newTransaction.Mytransid,
+                                Myid = myId,
+                                EmployeeId = transactionHdDto.EmployeeId,
+                                InstallmentNumber = 1,//Create a method to create subscription and this should be starts from currnet month + next year....
+                                AttachId = 0,
+                                PeriodCode = GetPeriodCode(),// comes from TBLPeriods table.
+                                InstallmentAmount = newTransaction.InstallmentAmount,
+                                ReceivedAmount = 0,
+                                PendingAmount = transactionHdDto.InstallmentAmount,
+                                DiscountAmount = 0,
+                                DiscountReference = string.Empty,
+                                UniversityBatchNo = string.Empty,
+                                ReceivedDate = null,
+                                EffectedAccount = null,
+                                OtherReference = null,
+                                Activityid = null,
+                                InstallmentsBegDate = transactionHdDto.InstallmentsBegDate,
+                                UntilMonth = transactionHdDto.UntilMonth,
+                                Userid = newTransaction.Userid,
+                                Entrydate = DateTime.Now
+                            };
+                            var transactionDt = _mapper.Map<TransactionDt>(data);
+                            pfid = employeeMembership.Pfid;
+                            await _context.TransactionDts.AddAsync(transactionDt);
+                            await _context.SaveChangesAsync();
+                            _context.ChangeTracker.Clear();
+                            #endregion
+                        }
+
+                        else if (transactionHdDto.ServiceTypeId == 2) // Financial Aids... 
+                        {
+                            #region Financial Aids...
+                            // Next Due Date for payment...
+                            DateTime nextDueDate = DateTime.Now.AddYears(1);
+                             
+                            // Add record to TransactionHD
+                            newTransaction.MasterServiceId = maxSwitch;
+                            newTransaction.Active = false;
+                            newTransaction.AllowDiscountDefault = transactionHdDto.AllowDiscountDefault;
+                            await _context.TransactionHds.AddAsync(newTransaction);
+                            await _context.SaveChangesAsync();
+                            myId = 1;
+                            for (int i = 0; i < transactionHdDto.Totinstallments; i++)
+                            {
+                                // Add record to TransactionDT
+                                var data = new TransactionDtDto
+                                {
+                                    TenentId = transactionHdDto.TenentId,
+                                    LocationId = transactionHdDto.LocationId,
+                                    Mytransid = newTransaction.Mytransid,
+                                    Myid = myId,
+                                    EmployeeId = transactionHdDto.EmployeeId,
+                                    InstallmentNumber = 1,//Create a method to create subscription and this should be starts from currnet month + next year....
+                                    AttachId = 0,
+                                    PeriodCode = GetPeriodCode(),// comes from TBLPeriods table.
+                                    InstallmentAmount = newTransaction.InstallmentAmount,
+                                    ReceivedAmount = 0,
+                                    PendingAmount = transactionHdDto.InstallmentAmount,
+                                    DiscountAmount = 0,
+                                    DiscountReference = string.Empty,
+                                    UniversityBatchNo = string.Empty,
+                                    ReceivedDate = null,
+                                    EffectedAccount = null,
+                                    OtherReference = null,
+                                    Activityid = null,
+                                    CrupId = 1,
+                                    Glpost = "1",
+                                    Glpost1 = null,
+                                    Glpostref = "1",
+                                    Glpostref1 = "1",
+                                    Active = true,
+                                    Switch1 = null,
+                                    DelFlag = null,
+                                    InstallmentsBegDate = transactionHdDto.InstallmentsBegDate,
+                                    UntilMonth = transactionHdDto.UntilMonth,
+                                    Userid = newTransaction.Userid,
+                                    Entrydate = DateTime.Now
+                                };
+                                var transactionDt = _mapper.Map<TransactionDt>(data);
+                                await _context.TransactionDts.AddAsync(transactionDt);
+                                await _context.SaveChangesAsync();
+                                _context.ChangeTracker.Clear();
+                                myId++;
+                            }
+                            //// Update detailedEmployee if termination is true need to update the detailed employee...
+                            employeeMembership.Subscription_status = empStatus.Refid;
+                            employeeMembership.EmpStatus = subscriptionStatus.Refid;
+                            employeeMembership.Pfid = newTransaction.PFID;
+                            employeeMembership.SubscriptionDate = DateTime.Now;
+                            _context.DetailedEmployees.Update(employeeMembership);
+                            await _context.SaveChangesAsync();
+
                             #endregion
                         }
                         else if (transactionHdDto.ServiceTypeId == 3) // Social Loan  - القرض الاجتماعي 
                         {
                             #region Social Loan...
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 2 || hd.ServiceTypeId == 2
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 2 || hd.ServiceTypeId == 2
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-
-                                // Next Due Date for payment...
+                           // Next Due Date for payment...
                                 DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
+                             
                                 // Add record to TransactionHD
                                 newTransaction.MasterServiceId = maxSwitch;
                                 newTransaction.PeriodBegin = Convert.ToInt32(GetPeriodCode());
@@ -1017,72 +677,14 @@ namespace API.Servivces.Implementation
                                 }
                                 await _context.SaveChangesAsync();
                                 pfid = employeeMembership.Pfid;
-                            }
                             #endregion
                         }
                         else if (transactionHdDto.ServiceTypeId == 4) // Miscellaneous Services Basket  - سلة الخدمات المتنوعة
                         {
                             #region Miscellaneous Services Basket
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 4 || hd.ServiceTypeId == 4
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 4 || hd.ServiceTypeId == 4
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-                                // Next Due Date for payment...
+                             // Next Due Date for payment...
                                 DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                // Add record to TransactionHD
+                              // Add record to TransactionHD
                                 newTransaction.MasterServiceId = maxSwitch;
                                 newTransaction.PeriodBegin = Convert.ToInt32(GetPeriodCode());
                                 newTransaction.AttachId = attachId;
@@ -1134,74 +736,15 @@ namespace API.Servivces.Implementation
                                     _context.ChangeTracker.Clear();
                                     myId++;
 
-                                }
-
-                            }
+                                } 
                             #endregion
                         }
                         else if (transactionHdDto.ServiceTypeId == 5) // End of Service - نهاية الخدمة
                         {
                             #region End of Service - نهاية الخدمة
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 5 || hd.ServiceTypeId == 5
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 5 || hd.ServiceTypeId == 5
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-                                // Next Due Date for payment...
+                            // Next Due Date for payment...
                                 DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                // Add record to TransactionHD
+                             // Add record to TransactionHD
                                 newTransaction.MasterServiceId = maxSwitch;
                                 newTransaction.PeriodBegin = Convert.ToInt32(GetPeriodCode());
                                 newTransaction.AttachId = attachId;
@@ -1254,196 +797,14 @@ namespace API.Servivces.Implementation
                                     myId++;
 
                                 }
-
-                            }
-
-                            #endregion
-                        }
-
-                        else if (transactionHdDto.ServiceTypeId == 6) // Death / Disability - الموت / العجز
-                        {
-                            #region Death / Disability - الموت / العجز
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 6 || hd.ServiceTypeId == 6
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 6 || hd.ServiceTypeId == 6
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-
-                                // Next Due Date for payment...
-                                DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                // Add record to TransactionHD
-                                newTransaction.MasterServiceId = maxSwitch;
-                                newTransaction.PeriodBegin = Convert.ToInt32(GetPeriodCode());
-                                newTransaction.AttachId = attachId;
-                                newTransaction.Active = true;
-                                newTransaction.Entrydate = DateTime.Now;
-                                newTransaction.AllowDiscountDefault = transactionHdDto.AllowDiscountDefault;
-                                await _context.TransactionHds.AddAsync(newTransaction);
-                                await _context.SaveChangesAsync();
-                                myId = 1;
-                                for (int i = 0; i < transactionHdDto.Totinstallments; i++)
-                                {
-                                    // Add record to TransactionDT
-                                    var data = new TransactionDtDto
-                                    {
-                                        TenentId = transactionHdDto.TenentId,
-                                        LocationId = transactionHdDto.LocationId,
-                                        Mytransid = newTransaction.Mytransid,
-                                        Myid = myId,
-                                        EmployeeId = transactionHdDto.EmployeeId,
-                                        InstallmentNumber = myId,
-                                        AttachId = attachId,
-                                        PeriodCode = GetPeriodCode(),// comes from TBLPeriods table.
-                                        InstallmentAmount = newTransaction.InstallmentAmount,
-                                        ReceivedAmount = 0,
-                                        PendingAmount = transactionHdDto.InstallmentAmount,
-                                        DiscountAmount = 0,
-                                        DiscountReference = string.Empty,
-                                        UniversityBatchNo = string.Empty,
-                                        ReceivedDate = null,
-                                        EffectedAccount = null,
-                                        OtherReference = null,
-                                        Activityid = null,
-                                        CrupId = 1,
-                                        Glpost = "1",
-                                        Glpost1 = null,
-                                        Glpostref = "1",
-                                        Glpostref1 = "1",
-                                        Active = true,
-                                        Switch1 = null,
-                                        DelFlag = null,
-                                        InstallmentsBegDate = transactionHdDto.InstallmentsBegDate,
-                                        UntilMonth = transactionHdDto.UntilMonth
-                                    };
-                                    var transactionDt = _mapper.Map<TransactionDt>(data);
-                                    await _context.TransactionDts.AddAsync(transactionDt);
-                                    await _context.SaveChangesAsync();
-                                    _context.ChangeTracker.Clear();
-                                    myId++;
-
-                                }
-
-                            }
-
-
                             #endregion
                         }
                         else if (transactionHdDto.ServiceTypeId == 7) // Discount on Loan - خصم على القرض
                         {
                             #region Discount on Loan - خصم على القرض
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 7 || hd.ServiceTypeId == 7
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 7 || hd.ServiceTypeId == 7
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-
                                 // Next Due Date for payment...
                                 DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                // Add record to TransactionHD
+                             // Add record to TransactionHD
                                 newTransaction.MasterServiceId = maxSwitch;
                                 newTransaction.PeriodBegin = Convert.ToInt32(GetPeriodCode());
                                 newTransaction.AttachId = attachId;
@@ -1496,80 +857,14 @@ namespace API.Servivces.Implementation
                                     myId++;
 
                                 }
-
-                            }
-
-
                             #endregion
-
                         }
                         else if (transactionHdDto.ServiceTypeId == 8) // Membership Cessation  - وقف العضوية  
                         {
                             #region Membership Cessation
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 8 || hd.ServiceTypeId == 8
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 8 || hd.ServiceTypeId == 8
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-                                //
-                                int totalMonths = CommonMethods.CalculateMembershipDuration((DateTime)employeeMembership.SubscribedDate);
-                                var discountValues = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "FinancialAid").ToList();
-
                                 // Next Due Date for payment...
                                 DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                // Add record to TransactionHD
+                             // Add record to TransactionHD
                                 newTransaction.MasterServiceId = maxSwitch;
                                 newTransaction.PeriodBegin = Convert.ToInt32(GetPeriodCode());
                                 newTransaction.AttachId = attachId;
@@ -1635,75 +930,14 @@ namespace API.Servivces.Implementation
                                 employeeMembership.TerminationDate = DateTime.Now;
                                 _context.DetailedEmployees.Update(employeeMembership);
                                 await _context.SaveChangesAsync();
-                            }
-
-
                             #endregion
                         }
                         else if (transactionHdDto.ServiceTypeId == 9) // Reimbursement - السداد
                         {
                             #region Reimbursement - السداد
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 9 || hd.ServiceTypeId == 9
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 9 || hd.ServiceTypeId == 9
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
                                 // Next Due Date for payment...
                                 DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                // Add record to TransactionHD
+                             // Add record to TransactionHD
                                 newTransaction.MasterServiceId = maxSwitch;
                                 newTransaction.PeriodBegin = Convert.ToInt32(GetPeriodCode());
                                 newTransaction.AttachId = attachId;
@@ -1754,76 +988,17 @@ namespace API.Servivces.Implementation
                                     await _context.SaveChangesAsync();
                                     _context.ChangeTracker.Clear();
                                     myId++;
-                                }
-                            }
+                                } 
                             #endregion
                         }
                         else if (transactionHdDto.ServiceTypeId == 10) // Membership Withdrawal
                         {
                             #region Membership-Withdrawls
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 10 || hd.ServiceTypeId == 10
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 10 || hd.ServiceTypeId == 10
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-                                int totalMonths = CommonMethods.CalculateMembershipDuration((DateTime)employeeMembership.SubscribedDate);
                                 var discountValues = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Withdrawals").ToList();
 
                                 // Next Due Date for payment...
                                 DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                //
+                             //
                                 decimal payableAmount = 0M;
                                 //
                                 decimal payableAmountAfterOneYear = 0M;
@@ -1971,76 +1146,14 @@ namespace API.Servivces.Implementation
 
                                     }
                                 }
-
-
-                            }
-
                             #endregion
                         }
                         else if (transactionHdDto.ServiceTypeId == 11) // Termination - الفصل من العمل  
                         {
                             #region Termination - الفصل من العمل
-                            // check if membership rejeced / terminated..
-                            var employeeMembership = _context.DetailedEmployees.FirstOrDefault(c => c.EmployeeId == transactionHdDto.EmployeeId);
-
-                            // To make sure Employee dont have any due Loan amount
-                            var dueLoanamount = (from hd in _context.TransactionHds
-                                                 join dt in _context.TransactionDts
-                                                 on hd.Mytransid equals dt.Mytransid
-                                                 where hd.EmployeeId == transactionHdDto.EmployeeId &&
-                                                 hd.TenentId == transactionHdDto.TenentId &&
-                                                 hd.LocationId == transactionHdDto.LocationId &&
-                                                 hd.ServiceTypeId == 11 || hd.ServiceTypeId == 11
-                                                 select new
-                                                 {
-                                                     hd,
-                                                     dt
-                                                 }).Count();
-                            // To make sure Employee is not sponsored for the pending Loan Amount
-                            var pendingLoanAmount = (from hd in _context.TransactionHds
-                                                     join dt in _context.TransactionDts
-                                                     on hd.Mytransid equals dt.Mytransid
-                                                     where hd.SponserProvidentID == transactionHdDto.EmployeeId &&
-                                                     hd.TenentId == transactionHdDto.TenentId &&
-                                                     hd.LocationId == transactionHdDto.LocationId &&
-                                                     hd.ServiceTypeId == 11 || hd.ServiceTypeId == 11
-                                                     select new
-                                                     {
-                                                         hd,
-                                                         dt
-                                                     }).Count();
-                            if (dueLoanamount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee have due Loan amount"
-                                };
-                            }
-                            else if (pendingLoanAmount != 0)
-                            {
-                                return new FinancialServiceResponse
-                                {
-                                    IsSuccess = false,
-                                    Message = "Employee is sponsored for the pending Loan Amount"
-                                };
-                            }
-                            else
-                            {
-
-                                // Next Due Date for payment...
+                               // Next Due Date for payment...
                                 DateTime nextDueDate = DateTime.Now.AddYears(1);
-
-                                // Get termination info
-                                var termination = _context.Reftables.Where(c => c.Reftype == "KUPF" && c.Refsubtype == "Termination").FirstOrDefault();
-
-                                // Get employee status
-                                var empStatus = _context.Reftables.Where(c => c.Refid == 9 && c.Reftype == "KUPF" && c.Refsubtype == "EmpStatus").FirstOrDefault();
-
-                                // Get Subscription Status
-                                var subscriptionStatus = _context.Reftables.Where(c => c.Refid == 1 && c.Reftype == "KUPF" && c.Refsubtype == "SubscriptionStatus").FirstOrDefault();
-
-                                // Add record to TransactionHD
+                             // Add record to TransactionHD
                                 newTransaction.MasterServiceId = maxSwitch;
                                 newTransaction.PeriodBegin = Convert.ToInt32(GetPeriodCode());
                                 newTransaction.AttachId = attachId;
@@ -2093,9 +1206,79 @@ namespace API.Servivces.Implementation
                                     myId++;
 
                                 }
-                            }
                             #endregion
                         }
+                        else
+                        { 
+                                return new FinancialServiceResponse
+                                {
+                                    IsSuccess = false,
+                                    Message = "Service Not Implemented"
+                                };
+                        }
+
+                        #region Save Into TransactionHDDApprovalDetails
+                        if (serviceApprovals != null)
+                        {
+                            List<string> myService = new List<string>
+                            {
+                                serviceApprovals.SerApproval1,
+                                serviceApprovals.SerApproval2,
+                                serviceApprovals.SerApproval3,
+                                serviceApprovals.SerApproval4,
+                                serviceApprovals.SerApproval5,
+                                serviceApprovals.SerApproval6
+                            };
+                            if (serviceApprovals != null)
+                            {
+                                myService.RemoveAll(item => item == null);
+                                int srId = 0;
+                                for (int i = 0; i < myService.Count; i++) // myservice is one active  = true else false.
+                                {
+                                    var transactionHddApprovalsDto = new TransactionHddapprovalDetailDto()
+                                    {
+                                        TenentId = newTransaction.TenentId,
+                                        Mytransid = newTransaction.Mytransid,
+                                        LocationId = (int)newTransaction.LocationId,
+                                        SerApprovalId = srId + 1,
+                                        SerApproval = myService[i].ToString(),
+                                        EmployeeId = newTransaction.EmployeeId,
+                                        ServiceType = newTransaction.ServiceTypeId,
+                                        ServiceSubType = newTransaction.ServiceSubTypeId,
+                                        ServiceId = srId + 1,
+                                        MasterServiceId = maxSwitch,
+                                        ApprovalDate = null,
+                                        RejectionType = null,
+                                        RejectionRemarks = null,
+                                        AttachId = attachId,
+                                        Status = "ManagerApproval",
+                                        Userid = newTransaction.Userid,
+                                        Entrydate = DateTime.Now,
+                                        Entrytime = DateTime.Now,
+                                        Updttime = DateTime.Now,
+                                        ApprovalRemarks = "BySystem",
+                                        mySeq = srId + 1,
+                                        DisplayPERIOD_CODE = transactionHdDto.PeriodCode
+
+                                    };
+                                    // We will set active first recored and other will by inactive by default.
+                                    if (i == 0)
+                                    {
+                                        transactionHddApprovalsDto.Active = true;
+                                    }
+                                    else
+                                    {
+                                        transactionHddApprovalsDto.Active = false;
+                                    }
+
+                                    var transactionHddApprovals = _mapper.Map<TransactionHddapprovalDetail>(transactionHddApprovalsDto);
+                                    transactionHddApprovals.MasterServiceId = maxSwitch;
+                                    await _context.TransactionHddapprovalDetails.AddAsync(transactionHddApprovals);
+                                    srId++;
+                                }
+                            }
+                        }
+                        #endregion
 
                         return new FinancialServiceResponse
                         {
@@ -2339,8 +1522,8 @@ namespace API.Servivces.Implementation
                                 e.LocationId == locationId &&
                                 ap.LocationId == locationId &&
                                 ap.SerApprovalId == 1 //&& // Manager Role Id
-                               // ap.DisplayPERIOD_CODE <= periodCode &&
-                               // ap.DisplayPERIOD_CODE >= periodCode
+                                                      // ap.DisplayPERIOD_CODE <= periodCode &&
+                                                      // ap.DisplayPERIOD_CODE >= periodCode
                                 select new ManagerApprovalDto
                                 {
                                     TransId = (int)ap.Mytransid,
@@ -2392,8 +1575,8 @@ namespace API.Servivces.Implementation
                                 e.LocationId == locationId &&
                                 ap.LocationId == locationId &&
                                 //ap.SerApprovalId == 1 && // Manager Role Id
-                               // ap.DisplayPERIOD_CODE <= periodCode &&
-                               // ap.DisplayPERIOD_CODE >= periodCode &&
+                                // ap.DisplayPERIOD_CODE <= periodCode &&
+                                // ap.DisplayPERIOD_CODE >= periodCode &&
                                 ap.Active == true
                                 select new ManagerApprovalDto
                                 {
@@ -2417,7 +1600,7 @@ namespace API.Servivces.Implementation
                                     Status = ap.Status,
                                     Active = ap.Active,
                                     CrupId = (long)e.CRUP_ID
-                                }).AsQueryable();
+                                }).OrderByDescending(c => c.TransId).AsQueryable();
                     if (!string.IsNullOrEmpty(paginationModel.Query))
                     {
                         data = data.Where(u =>
@@ -2736,7 +1919,7 @@ namespace API.Servivces.Implementation
                                 DraftDate1 = hd.DraftDate1,
                                 DraftDate2 = hd.DraftDate2,
                                 IsDraftCreated = hd.IsDraftCreated
-                            }).AsQueryable();
+                            }).OrderByDescending(c => c.TransId).AsQueryable();
                 if (!string.IsNullOrEmpty(paginationModel.Query))
                 {
                     data = data.Where(u =>
@@ -2783,7 +1966,7 @@ namespace API.Servivces.Implementation
                                 DraftDate1 = hd.DraftDate1,
                                 DraftDate2 = hd.DraftDate2,
                                 IsDraftCreated = hd.IsDraftCreated
-                            }).AsQueryable();
+                            }).OrderByDescending(c => c.TransId).AsQueryable();
                 if (!string.IsNullOrEmpty(paginationModel.Query))
                 {
                     data = data.Where(u =>
@@ -2798,7 +1981,6 @@ namespace API.Servivces.Implementation
                         );
                 }
                 return await PagedList<CashierApprovalDto>.CreateAsync(data, paginationModel.PageNumber, paginationModel.PageSize);
-
             }
         }
 

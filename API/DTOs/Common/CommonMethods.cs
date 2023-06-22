@@ -1,7 +1,11 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
+using System.Linq;
 
 namespace API.Common
 {
@@ -72,7 +76,7 @@ namespace API.Common
         public static Int64 CreateEmployeeId()
         {
             Random rnd = new Random();
-		    Int64 employeeId  = rnd.Next(1, 1000000); 
+            Int64 employeeId = rnd.Next(1, 1000000);
             return employeeId;
         }
         public static Int32 CreateUserId()
@@ -88,8 +92,8 @@ namespace API.Common
         }
         public static string EncodePass(string plainText)
         {
-        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-        return System.Convert.ToBase64String(plainTextBytes);
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
         }
 
         public static int CreateSubscriberInstallments(DateTime installmentBeginDate)
@@ -117,7 +121,7 @@ namespace API.Common
             Random rnd = new Random();
             int transId = rnd.Next(1, 100000);
             return transId;
-        }  
+        }
         public static int GenerateFileName()
         {
             Random rnd = new Random();
@@ -145,6 +149,99 @@ namespace API.Common
                    .AddJsonFile("appsettings.json").Build();
             var dbconnectionStr = dbconfig["ConnectionStrings:MsSqlConnection"];
             return dbconnectionStr;
+        }
+
+        public static List<T> AutoMapToObject<T>(this object a, DataTable dt)
+        {
+            var columnNames = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName.ToLower()).ToList();
+            var properties = typeof(T).GetProperties();
+            return dt.AsEnumerable().Select(row =>
+            {
+                var objT = Activator.CreateInstance<T>();
+                foreach (var pro in properties)
+                {
+                    if (columnNames.Contains(pro.Name.ToLower()))
+                    {
+                        try
+                        {
+                            var typ = pro.PropertyType;
+                            if (typ.IsGenericType && typ.GetGenericTypeDefinition() == typeof(Nullable<>))
+                            {
+                                string data = $"{row[pro.Name]}";
+                                if (String.IsNullOrEmpty(data)) pro.SetValue(objT, null);
+                                else pro.SetValue(objT, Convert.ChangeType(data, typ.GetGenericArguments()[0]));
+                            }
+                            else pro.SetValue(objT, row[pro.Name]);
+                        }
+                        catch (Exception ex)
+                        { }
+                    }
+                }
+                return objT;
+            }).ToList();
+        }
+
+        public static DataSet GetDataSet(string ProcNameORQuery, CommandType commandType, Hashtable ht = null)
+        {
+            SqlParameter[] mySqlParam = null;
+
+            if (ht != null)
+                mySqlParam = GetSqlParametersfromHash(ht);
+            SqlConnection mycon = new SqlConnection(GetDbConnection());
+            SqlCommand mycmd = new SqlCommand();
+            mycmd.CommandType = commandType;
+            mycmd.Connection = mycon;
+            mycmd.CommandText = ProcNameORQuery;
+            mycmd.CommandTimeout = 0;
+            if (mySqlParam != null)
+                mycmd.Parameters.AddRange(mySqlParam);
+            if (mycon.State == ConnectionState.Closed)
+                mycon.Open();
+            SqlDataAdapter myda = new SqlDataAdapter(mycmd);
+            DataSet myds = new DataSet();
+            myda.Fill(myds);
+            if (mycon.State == ConnectionState.Open)
+                mycon.Close();
+            return myds;
+        }
+
+        public static DataTable GetDataTable(string ProcNameORQuery, CommandType commandType, Hashtable ht = null)
+        {
+            SqlParameter[] mySqlParam = null;
+
+            if (ht != null)
+                mySqlParam =  GetSqlParametersfromHash(ht);
+
+            DataTable mydt = new DataTable();
+            SqlConnection mycon = new SqlConnection(GetDbConnection());
+            SqlCommand mycmd = new SqlCommand();
+            mycmd.CommandType = commandType;
+            mycmd.Connection = mycon;
+            mycmd.CommandText = ProcNameORQuery;
+            mycmd.CommandTimeout = 0;
+            if (mySqlParam != null)
+                mycmd.Parameters.AddRange(mySqlParam);
+            if (mycon.State == ConnectionState.Closed)
+                mycon.Open();
+            SqlDataAdapter myda = new SqlDataAdapter(mycmd);
+            myda.Fill(mydt);
+            if (mycon.State == ConnectionState.Open)
+                mycon.Close();
+            return mydt;
+        }
+
+        public static SqlParameter[] GetSqlParametersfromHash(Hashtable HT)
+        {
+            SqlParameter[] param = new SqlParameter[HT.Keys.Count];
+            int index = 0;
+            foreach (DictionaryEntry item in HT)
+            {
+                param[index] = new SqlParameter("@" + item.Key.ToString(), item.Value);
+                index++;
+            }
+
+            return param;
+
         }
     }
 }
