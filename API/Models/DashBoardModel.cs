@@ -6,17 +6,20 @@ namespace API.Models
     public class DashBoardModel
     {
         public List<NewMembersDashBoardModel> newMembersDashBoardModel { get; set; }
+        public List<NewMembersDashBoardModel> membersStatisticsDashBoardModel { get; set; }
+        public List<NewMembersDashBoardModel> latestSubscriberDashBoardModel { get; set; }
+        public List<NewSubscriberDashBoardModel> newSubscriberDashBoardModel { get; set; }
+        public List<ToDoDashBoardModel>  toDoDashBoardModels { get; set; }
     }
     public class NewMembersDashBoardModel
     {
-        public string employeeID { get; set; }
-    public string EmployeeEnglishName { get; set; }
+        public int employeeID { get; set; }
+        public string EmployeeEnglishName { get; set; }
         public string EmployeeArabicName { get; set; }
+        public string Status { get; set; }
         public int TenentID { get; set; }
         public int LocationID { get; set; }
-        public int PFID { get; set; }
-        public int salary { get; set; }
-        public DateTime SubscribedDate { get; set; }
+        public string PFID { get; set; }
         public DateTime joined_date { get; set; }
         public DateTime EmpUpdatedDate { get; set; }
         public string EmployeeTypeEnglish { get; set; }
@@ -24,10 +27,42 @@ namespace API.Models
         public string DepartmentEnglish { get; set; }
         public string DepartmentArabic { get; set; }
         public string MobileNumber { get; set; }
-        public string MaritalStatusEnglish { get; set; }
         public string SubscriptionStatusEnglish { get; set; }
         public string SubscriptionStatusArabic { get; set; }
-        public string MaritalStatusArabic { get; set; }
         public int SubscriptionStatusId { get; set; }
+        public string EmployeeEnglishDescription { get; set; }
+        public string EmployeeArabicDescription { get; set; }
+        public DateTime TRANSDATE { get; set; }
     }
+
+    public class NewSubscriberDashBoardModel
+    {
+        public int employeeID { get; set; }
+        public string EmployeeEnglishName { get; set; }
+        public string EmployeeArabicName { get; set; }
+        public int TenentID { get; set; }
+        public string EmployeeEnglishDescription { get; set; }
+        public string EmployeeArabicDescription { get; set; }
+        public DateTime TRANSDATE { get; set; }
+    }
+    public class ToDoDashBoardModel
+    {
+        public int employeeID { get; set; }
+        public string EmployeeEnglishName { get; set; }
+        public string EmployeeArabicName { get; set; }
+        public int TenentID { get; set; }
+        public string PFID { get; set; }
+        public int LocationID { get; set; }
+        public string ServiceTypeEnglish { get; set; }
+        public string ServiceTypeArabic { get; set; }
+        public string ServicesSubTypeEnglish { get; set; }
+        public string ServicesSubTypeArabic { get; set; }
+        public string Status { get; set; }
+        public string ApprovalRemarks { get; set; }
+        public DateTime UpdateDateTime { get; set; }
+        public Int64 MYTRANSID { get; set; }
+    }
+
+
+
 }

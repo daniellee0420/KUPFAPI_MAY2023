@@ -23,6 +23,10 @@ namespace API.Servivces.Implementation
                 hashTable.Add("tenentId", tenentId);
                 DataSet objDataset = CommonMethods.GetDataSet("[dbo].[spGetDashBoardDetails]", CommandType.StoredProcedure, hashTable);
                 data.newMembersDashBoardModel = this.AutoMapToObject<NewMembersDashBoardModel>(objDataset.Tables[0]);
+                data.membersStatisticsDashBoardModel = this.AutoMapToObject<NewMembersDashBoardModel>(objDataset.Tables[1]);
+                data.latestSubscriberDashBoardModel = this.AutoMapToObject<NewMembersDashBoardModel>(objDataset.Tables[2]);
+                data.newSubscriberDashBoardModel = this.AutoMapToObject<NewSubscriberDashBoardModel>(objDataset.Tables[3]);
+                data.toDoDashBoardModels = this.AutoMapToObject<ToDoDashBoardModel>(objDataset.Tables[4]);
                 return data;
             }
             catch (Exception ex)
