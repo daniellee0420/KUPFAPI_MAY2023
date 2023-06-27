@@ -146,13 +146,6 @@ C:\Users\LENOVO\source\repos\KUPFAPI_MAY2023\API\obj\Debug\net6.0\refint\API.dll
 C:\Users\LENOVO\source\repos\KUPFAPI_MAY2023\API\obj\Debug\net6.0\API.pdb
 C:\Users\LENOVO\source\repos\KUPFAPI_MAY2023\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 C:\Users\LENOVO\source\repos\KUPFAPI_MAY2023\API\obj\Debug\net6.0\ref\API.dll
-C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.csproj.AssemblyReference.cache
-C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.AssemblyInfoInputs.cache
-C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.AssemblyInfo.cs
-C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.csproj.CoreCompileInputs.cache
-C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\bin\Debug\net6.0\appsettings.json
 C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\bin\Debug\net6.0\API.exe
@@ -206,6 +199,13 @@ C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\bin\Debug\net6.0\runtimes\win\lib\
 C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.csproj.AssemblyReference.cache
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.AssemblyInfoInputs.cache
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.AssemblyInfo.cs
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\staticwebassets\msbuild.build.API.props
 C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.API.props

@@ -170,3 +170,6 @@ C:\Users\LENOVO\source\repos\KUPFAPI_MAY2023\API\obj\Release\net5.0\refint\API.d
 C:\Users\LENOVO\source\repos\KUPFAPI_MAY2023\API\obj\Release\net5.0\API.pdb
 C:\Users\LENOVO\source\repos\KUPFAPI_MAY2023\API\obj\Release\net5.0\API.genruntimeconfig.cache
 C:\Users\LENOVO\source\repos\KUPFAPI_MAY2023\API\obj\Release\net5.0\ref\API.dll
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Release\net5.0\API.dll
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Release\net5.0\refint\API.dll
+C:\Users\LENOVO\source\repos\KUPF_UPDATED\API\obj\Release\net5.0\API.pdb

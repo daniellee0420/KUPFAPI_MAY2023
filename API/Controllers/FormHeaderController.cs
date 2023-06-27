@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using System;
 using API.Models;
 using API.ViewModels.Localization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FormHeaderController : ControllerBase

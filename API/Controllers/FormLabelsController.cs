@@ -8,11 +8,13 @@ using API.Models;
 using API.Servivces.Interfaces;
 using API.ViewModels.Localization;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class FormLabelsController : ControllerBase

@@ -710,7 +710,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.RefTableController.GetRefTableByRefTypeAndSubType(System.String,System.String)">
+        <member name="M:API.Controllers.RefTableController.GetRefTableByRefTypeAndSubType(API.Helpers.PaginationParams,System.String,System.String)">
             <summary>
             Api to Get RefTable By RefType And SubType
             </summary>
@@ -740,7 +740,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:API.Controllers.ServiceSetupController.GetServiceSetup">
+        <member name="M:API.Controllers.ServiceSetupController.GetServiceSetup(API.Models.PaginationModel)">
             <summary>
             Api to Get Service Setup
             </summary>
