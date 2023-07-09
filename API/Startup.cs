@@ -22,6 +22,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using API.Middleware;
+using Microsoft.Extensions.Options;
 
 namespace API
 {
@@ -39,6 +40,10 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<IISServerOptions>(Options =>
+            {
+                Options.MaxRequestBodySize = int.MaxValue;
+            });
             //
              services.AddScoped<ITokenService, TokenService>();
             //

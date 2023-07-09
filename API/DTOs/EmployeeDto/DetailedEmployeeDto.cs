@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +14,7 @@ namespace API.DTOs.EmployeeDto
         public int EmployeeId { get; set; }
         public string ContractType { get; set; }
         public string Pfid { get; set; }
+        public string Token { get; set; }
         public DateTime? SubscribedDate { get; set; }
         public decimal? AgreedSubAmount { get; set; }
         public DateTime? ReSubscribed { get; set; }
@@ -89,5 +92,12 @@ namespace API.DTOs.EmployeeDto
         public string Username { get; set; }
         public DateTime? CreatedDate { get; set; }
 
+    }
+    public class ImportEmpDataInputModel
+    {
+        public string username { get; set; }
+        public string tenantId { get; set; } 
+          public IFormFile file { get; set; }
+       // public FileType FileType { get; set; }
     }
 }

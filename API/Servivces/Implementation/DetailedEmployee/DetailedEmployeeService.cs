@@ -14,6 +14,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Helpers;
+using System.Xml.Linq;
+using Microsoft.Extensions.Logging;
+using System.Collections;
+using System.Data;
 
 namespace API.Servivces.Implementation.DetailedEmployee
 {
@@ -78,58 +82,59 @@ namespace API.Servivces.Implementation.DetailedEmployee
         public async Task<int> AddEmployeeAsync(DetailedEmployeeDto detailedEmployeeDto)
         {
             int result = 0;
-            try { 
-            if (_context != null)
+            try
             {
-                var crupId = _context.CrupMsts.Max(c => c.CrupId);
-                var maxCrupId = crupId + 1;
-                var newEmployee = _mapper.Map<Models.DetailedEmployee>(detailedEmployeeDto);
-                newEmployee.LocationId = 1;
-                newEmployee.CRUP_ID = maxCrupId;
-                if (detailedEmployeeDto.IsMemberOfFund == null)
-                    newEmployee.IsMemberOfFund = false;
-                
-                if (detailedEmployeeDto.IsOnSickLeave == null)
-                    newEmployee.IsOnSickLeave = false;
-                
-                newEmployee.EmpStatus = 1;
-                newEmployee.Subscription_status = null;
-                
-                newEmployee.EmployeeLoginId = detailedEmployeeDto.MobileNumber;
-                newEmployee.EmployeePassword = CommonMethods.EncodePass(detailedEmployeeDto.MobileNumber);
-                newEmployee.Active = true;
-                await _context.DetailedEmployees.AddAsync(newEmployee);
-                await _context.SaveChangesAsync();
-                #region Save Into CrupAudit
-                //
-                var auditInfo = _context.Reftables.FirstOrDefault(c => c.Reftype == "Audit" && c.Refsubtype == "Employee");
-                var mySerialNo =  _context.Crupaudits.Max(c => c.MySerial) + 1;
-                var auditNo = _context.Crupaudits.Max(c => c.AuditNo) + 1;
-                var crupAudit = new Crupaudit
+                if (_context != null)
                 {
-                    TenantId = detailedEmployeeDto.TenentId,
-                    LocationId = detailedEmployeeDto.LocationId,
-                    CrupId = maxCrupId,
-                    MySerial = mySerialNo,
-                    AuditNo = auditNo,
-                    AuditType = auditInfo.Shortname,
-                    TableName = DbTableEnums.DetailedEmployee.ToString(),
-                    FieldName = $"",
-                    OldValue = "Non",
-                    NewValue = "Inserted",
-                    CreatedDate = DateTime.Now,
-                    CreatedUserName = detailedEmployeeDto.Username,
-                    UserId = Convert.ToInt32(detailedEmployeeDto.UserId),
-                    CrudType = CrudTypeEnums.Insert.ToString(),
-                    Severity = SeverityEnums.Normal.ToString()
-                };
-                await _context.Crupaudits.AddAsync(crupAudit);
-                result = await _context.SaveChangesAsync();
-                return result;
-                #endregion
+                    var crupId = _context.CrupMsts.Max(c => c.CrupId);
+                    var maxCrupId = crupId + 1;
+                    var newEmployee = _mapper.Map<Models.DetailedEmployee>(detailedEmployeeDto);
+                    newEmployee.LocationId = 1;
+                    newEmployee.CRUP_ID = maxCrupId;
+                    if (detailedEmployeeDto.IsMemberOfFund == null)
+                        newEmployee.IsMemberOfFund = false;
+
+                    if (detailedEmployeeDto.IsOnSickLeave == null)
+                        newEmployee.IsOnSickLeave = false;
+
+                    newEmployee.EmpStatus = 1;
+                    newEmployee.Subscription_status = null;
+
+                    newEmployee.EmployeeLoginId = detailedEmployeeDto.MobileNumber;
+                    newEmployee.EmployeePassword = CommonMethods.EncodePass(detailedEmployeeDto.MobileNumber);
+                    newEmployee.Active = true;
+                    await _context.DetailedEmployees.AddAsync(newEmployee);
+                    await _context.SaveChangesAsync();
+                    #region Save Into CrupAudit
+                    //
+                    var auditInfo = _context.Reftables.FirstOrDefault(c => c.Reftype == "Audit" && c.Refsubtype == "Employee");
+                    var mySerialNo = _context.Crupaudits.Max(c => c.MySerial) + 1;
+                    var auditNo = _context.Crupaudits.Max(c => c.AuditNo) + 1;
+                    var crupAudit = new Crupaudit
+                    {
+                        TenantId = detailedEmployeeDto.TenentId,
+                        LocationId = detailedEmployeeDto.LocationId,
+                        CrupId = maxCrupId,
+                        MySerial = mySerialNo,
+                        AuditNo = auditNo,
+                        AuditType = auditInfo.Shortname,
+                        TableName = DbTableEnums.DetailedEmployee.ToString(),
+                        FieldName = $"",
+                        OldValue = "Non",
+                        NewValue = "Inserted",
+                        CreatedDate = DateTime.Now,
+                        CreatedUserName = detailedEmployeeDto.Username,
+                        UserId = Convert.ToInt32(detailedEmployeeDto.UserId),
+                        CrudType = CrudTypeEnums.Insert.ToString(),
+                        Severity = SeverityEnums.Normal.ToString()
+                    };
+                    await _context.Crupaudits.AddAsync(crupAudit);
+                    result = await _context.SaveChangesAsync();
+                    return result;
+                    #endregion
 
 
-            }
+                }
             }
             catch (Exception ex)
             {
@@ -143,7 +148,7 @@ namespace API.Servivces.Implementation.DetailedEmployee
             int result = 0;
             if (_context != null)
             {
-                
+
                 var existingEmployee = _context.DetailedEmployees
                     .Where(c => c.EmployeeId == detailedEmployeeDto.EmployeeId).FirstOrDefault();
 
@@ -168,7 +173,7 @@ namespace API.Servivces.Implementation.DetailedEmployee
                         detailedEmployeeDto.Subscription_status = existingEmployee.Subscription_status;
                         _mapper.Map(detailedEmployeeDto, existingEmployee);
                         existingEmployee.LocationId = 1;
-                        existingEmployee.DateTime = DateTime.Now;                       
+                        existingEmployee.DateTime = DateTime.Now;
                         _context.DetailedEmployees.Update(existingEmployee);
                         result = await _context.SaveChangesAsync();
                     }
@@ -221,7 +226,7 @@ namespace API.Servivces.Implementation.DetailedEmployee
                     var maxCrupId = crupId + 1;
                     //
                     var auditInfo = _context.Reftables.FirstOrDefault(c => c.Reftype == "Audit" && c.Refsubtype == "Employee");
-                    var mySerialNo = _context.Crupaudits.Max(c => c.MySerial) + 1 ;
+                    var mySerialNo = _context.Crupaudits.Max(c => c.MySerial) + 1;
                     var auditNo = _context.Crupaudits.Max(c => c.AuditNo) + 1;
                     var crupAudit = new Crupaudit
                     {
@@ -240,7 +245,7 @@ namespace API.Servivces.Implementation.DetailedEmployee
                         UserId = Convert.ToInt32(detailedEmployeeDto.UserId),
                         CrudType = CrudTypeEnums.Delete.ToString(),
                         Severity = SeverityEnums.High.ToString()
-                        
+
                     };
                     await _context.Crupaudits.AddAsync(crupAudit);
                     await _context.SaveChangesAsync();
@@ -250,7 +255,7 @@ namespace API.Servivces.Implementation.DetailedEmployee
             }
             return result;
         }
-                
+
 
         public async Task<string> ValidateEmployeeData(DetailedEmployeeDto detailedEmployeeDto)
         {
@@ -335,7 +340,7 @@ namespace API.Servivces.Implementation.DetailedEmployee
                 }
                 return await PagedList<DetailedEmployeeDto>.CreateAsync(data, paginationParams.PageNumber, paginationParams.PageSize);
             }
-            else if(filterVal == 12)
+            else if (filterVal == 12)
             {
                 var data = (from e in _context.DetailedEmployees
                             join r in _context.Reftables
@@ -405,6 +410,28 @@ namespace API.Servivces.Implementation.DetailedEmployee
 
             }
 
+        }
+
+
+        public async Task<int> UploadEmployeeExcelFile(string xmlDocumentWithoutNs, int tenantId, string username, string uploaderType)
+        {
+            int result = 0;
+            try
+            {
+                 
+            Hashtable hashTable = new Hashtable();
+            hashTable.Add("tenentId", tenantId);
+            hashTable.Add("userName", username);
+            hashTable.Add("uploaderType", uploaderType);
+            hashTable.Add("xmlData", xmlDocumentWithoutNs);
+                DataSet objDataset = CommonMethods.GetDataSet("[dbo].[spImportEmployeeData]", CommandType.StoredProcedure, hashTable);
+                result = Convert.ToInt32(objDataset.Tables[0].Rows[0][0]);
+            }
+            catch (Exception ex)
+            {
+                result = 3;
+            }
+            return result;
         }
     }
 }

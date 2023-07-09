@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -6,6 +7,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace API.Common
 {
@@ -210,7 +214,7 @@ namespace API.Common
             SqlParameter[] mySqlParam = null;
 
             if (ht != null)
-                mySqlParam =  GetSqlParametersfromHash(ht);
+                mySqlParam = GetSqlParametersfromHash(ht);
 
             DataTable mydt = new DataTable();
             SqlConnection mycon = new SqlConnection(GetDbConnection());
@@ -242,6 +246,75 @@ namespace API.Common
 
             return param;
 
+        }
+
+        public static string OleDBString(string FileName, string ExtensionType, string Header = "YES")
+        {
+            string OleDBString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileName + ";Extended Properties='Excel 12.0;HDR=" + Header + ";IMEX=1'";
+
+            if (ExtensionType == ".XLS")
+                OleDBString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + FileName + ";Extended Properties='Excel 8.0;HDR=" + Header + ";IMEX=1'";
+
+            return OleDBString;
+        }
+        public static string GetXmlString(string[] xmlFieldNames, object[,] values, int Records)
+        {
+            StringBuilder xmlString = new StringBuilder();
+            xmlString.AppendFormat("<{0}>", "DATA");
+            for (int i = 0; i < Records; i++)
+            {
+                xmlString.AppendFormat("<{0}>", "ID");
+                for (int j = 0; j < xmlFieldNames.Length; j++)
+                {
+                    string KeyName = "<" + xmlFieldNames[j] + ">{0}</" + xmlFieldNames[j] + ">";
+                    xmlString.AppendFormat(KeyName, values[i, j]);
+                }
+                xmlString.AppendFormat("</{0}>", "ID");
+            }
+            xmlString.AppendFormat("</{0}>", "DATA");
+            return xmlString.ToString();
+        }
+
+
+        public static string ConvertObjToXML(object InputString)
+        {
+            if (InputString != null && !string.IsNullOrEmpty(InputString.ToString()))
+            {
+                XmlSerializer ser = new XmlSerializer(InputString.GetType(), "http://schemas.yournamespace.com");
+                string result = string.Empty;
+                using (MemoryStream memStm = new MemoryStream())
+                {
+                    ser.Serialize(memStm, InputString);
+                    memStm.Position = 0; 
+                    result = new StreamReader(memStm).ReadToEnd();
+                }
+                System.Xml.Linq.XElement xmlDocumentWithoutNs = RemoveAllNamespaces(System.Xml.Linq.XElement.Parse(result));
+                return !string.IsNullOrEmpty(xmlDocumentWithoutNs.Value) ? xmlDocumentWithoutNs.ToString() : "";
+            }
+            else { return ""; }
+        }
+        public static XElement RemoveAllNamespaces(XElement xmlDocument)
+        {
+            if (!xmlDocument.HasElements)
+            {
+                XElement xElement = new XElement(xmlDocument.Name.LocalName);
+                xElement.Value = xmlDocument.Value;
+                foreach (XAttribute attribute in xmlDocument.Attributes())
+                    xElement.Add(attribute); return xElement;
+            }
+            return new XElement(xmlDocument.Name.LocalName, xmlDocument.Elements()
+                .Select(el => RemoveAllNamespaces(el)));
+        }
+
+        public static string GetContentType(string path)
+        {
+            var provider = new FileExtensionContentTypeProvider();
+            string contentType;
+            if (!provider.TryGetContentType(path, out contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+            return contentType;
         }
     }
 }

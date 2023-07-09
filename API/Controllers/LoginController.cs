@@ -1,12 +1,14 @@
 ﻿using API.Common;
 using API.DTOs;
 using API.DTOs.EmployeeDto;
+using API.DTOs.LocalizationDto;
 using API.Models;
 using API.Servivces.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -264,6 +266,10 @@ namespace API.Controllers
                             }
                         }
                     }
+                    menuHeader[0].listMenuHighLightHeading = new List<FormTitleDTLanguageDto>();
+                    var result1 = await _context.FormTitleDTLanguage.Where(c => c.FormID == "MenuHighlightedKeyword").ToListAsync();
+                    var data1 = _mapper.Map<IEnumerable<FormTitleDTLanguageDto>>(result1);
+                    menuHeader[0].listMenuHighLightHeading.AddRange(data1);
                 }
                 return Ok(menuHeader);
             }
@@ -281,16 +287,18 @@ namespace API.Controllers
         [Route("MobileLogin")]
         public async Task<ActionResult<DetailedEmployeeDto>> MobileLogin(MobileLoginDto mobileLoginDto)
         {
-            //string tokenValue = HttpContext.Session.GetString("TokenValue");
-            //if (!_tokenService.IsTokenValid(tokenValue))
-            //{
-            //    return Ok(new { errorCode = 400, status = false, message = "Invalid access" });
-            //}
+
+          
             var employee = await _context.DetailedEmployees.
                 Where(c => c.EmployeeLoginId == mobileLoginDto.username && c.EmployeePassword == mobileLoginDto.password)
                 .FirstOrDefaultAsync();
 
             var user = _mapper.Map<DetailedEmployeeDto>(employee);
+            var tokenNo = _tokenService.GetTokenValueByUserName(user.EmployeeLoginId);
+
+            if (tokenNo == null)
+                tokenNo = Convert.ToString(_tokenService.CreateToken(user.EmployeeLoginId));
+            user.Token = tokenNo;
 
             return Ok(user);
         }

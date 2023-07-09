@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.DTOs.LocalizationDto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,5 +47,15 @@ namespace API.DTOs
         public DateTime MenuDate { get; set; }
         public List<MenuItemsDto> MenuItems { get; set; }
         public List<MenuHeadingDto> ListMenuHeadingDto { get; set; }
+        public List<FormTitleDTLanguageDto> listMenuHighLightHeading  { get; set; }
+    }
+    public class ListMenuHighLightHeading
+    {
+        public string FormID { get; set; }
+        public int Language { get; set; }
+        public string LabelId { get; set; }
+        public string Title { get; set; }
+        public string ArabicTitle { get; set; }
+        public string RL { get; set; }
     }
 }

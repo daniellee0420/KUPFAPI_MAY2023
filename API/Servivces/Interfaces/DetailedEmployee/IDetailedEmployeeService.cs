@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace API.Servivces.Interfaces.DetailedEmployee
 {
@@ -19,5 +20,7 @@ namespace API.Servivces.Interfaces.DetailedEmployee
          
         Task<string> ValidateEmployeeData(DetailedEmployeeDto detailedEmployeeDto);
         Task<PagedList<DetailedEmployeeDto>> FilterEmployeeListAsync(PaginationParams paginationParams, int filterVal);
+
+        Task<int> UploadEmployeeExcelFile(string xmlDocumentWithoutNs,int tenantId,string username,string uploaderType);
     }
 }

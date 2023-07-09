@@ -27,6 +27,7 @@ namespace API.Servivces.Implementation
                 data.latestSubscriberDashBoardModel = this.AutoMapToObject<NewMembersDashBoardModel>(objDataset.Tables[2]);
                 data.newSubscriberDashBoardModel = this.AutoMapToObject<NewSubscriberDashBoardModel>(objDataset.Tables[3]);
                 data.toDoDashBoardModels = this.AutoMapToObject<ToDoDashBoardModel>(objDataset.Tables[4]);
+                data.employeePerformanceDashBoardModel = this.AutoMapToObject<EmployeePerformanceDashBoardModel>(objDataset.Tables[5]);
                 return data;
             }
             catch (Exception ex)
