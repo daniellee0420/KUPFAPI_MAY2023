@@ -101,7 +101,7 @@ namespace API.Servivces.Implementation
                                 VoucherDetailsDto voucherDetails = new VoucherDetailsDto();
                                 voucherDetails.VoucherDetailID = Convert.ToInt64(dataReader["VoucherDetailID"]);
                                 voucherDetails.AccountName = dataReader["AccountName"].ToString();
-                                voucherDetails.AccountId = Convert.ToInt32(dataReader["Account_ID"]);
+                                voucherDetails.AccountId = Convert.ToString(dataReader["Account_ID"]);
                                 voucherDetails.Amount = Convert.ToDouble(dataReader["Amount"]);
                                 voucherDetails.Particular = dataReader["Particular"].ToString();
                                 if (dataReader["ChequeNo"] == DBNull.Value)
@@ -159,7 +159,7 @@ namespace API.Servivces.Implementation
                                 VoucherDetailsDto voucherDetails = new VoucherDetailsDto();
                                 voucherDetails.VoucherDetailID = Convert.ToInt64(dataReader["VoucherDetailID"]);
                                 voucherDetails.AccountName = dataReader["AccountName"].ToString();
-                                voucherDetails.AccountId = Convert.ToInt32(dataReader["Account_ID"]);
+                                voucherDetails.AccountId = Convert.ToString(dataReader["Account_ID"]);
                                 voucherDetails.Amount = Convert.ToDouble(dataReader["Amount"]);
                                 voucherDetails.Particular = dataReader["Particular"].ToString();
                                 if (dataReader["ChequeNo"] == DBNull.Value)
@@ -191,7 +191,7 @@ namespace API.Servivces.Implementation
                 return voucherDetailsList;
             }
             catch (Exception ex)
-            {
+             {
                 return null;
             }
         }

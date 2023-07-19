@@ -82,6 +82,7 @@ namespace API
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IFormHeaderService, FormHeaderService>();
             services.AddScoped<IDashBoardService, DashBoardService>();
+            services.AddScoped<IReportsService, ReportsService>();
             //
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
