@@ -49,18 +49,20 @@ namespace API.Servivces.Implementation
             {
                 srNo++;
                 reportTemplate += "<tr>";
-                reportTemplate += "<td style='border: 1px solid'>" + srNo + "</td>";
-                reportTemplate += "<td style='border: 1px solid'>" + val.AccountNumber + "</td>";
-                reportTemplate += "<td style='border: 1px solid'>" + val.AccountName + "</td>";
-                reportTemplate += "<td style='border: 1px solid'>" + val.Debit + "</td>";
-                reportTemplate += "<td style='border: 1px solid'>" + val.Credit + "</td>";
+                reportTemplate += "<td style='width: 60px;'>" + srNo + "</td>";
+                reportTemplate += "<td style='width: 140px;'>" + val.AccountNumber + "</td>";
+                reportTemplate += "<td style='width: 200px;'>" + val.AccountName + "</td>";
+                reportTemplate += "<td style='width: 150px;'>" + val.Debit + "</td>";
+                reportTemplate += "<td style='width: 150px;'>" + val.Credit + "</td>";
                 reportTemplate += "</tr>";
                 totalDebit += Convert.ToDouble(val.Debit);
                 totalCredit += Convert.ToDouble(val.Credit);
 
             }
-            reportTemplate += "</table><br><div style='float: right;'><table style='border: 1px solid black; border-collapse: collapse; text-align: center;'><tr><td style='border: 1px solid black; width: 200px;'>Balance - رصيد حساب</td>";
-            reportTemplate += "<td style='border: 1px solid black; width: 145px;'>"+ totalDebit + "</td><td style='border: 1px solid black; width: 145px;'>"+ totalCredit + "</td></tr></table></div></div></div></div></div>";
+            reportTemplate += "</table  style='border-collapse: collapse; width:80%; margin-left: auto;     margin-right: auto;'><br><div style='float: right;'><table  style=' border-collapse: collapse; width:75%; margin-left: auto;     margin-right: 30%;'><tr><td style=' width: 200px;'>Balance - رصيد حساب</td>";
+            reportTemplate += "<td style='width: 145px; background-color: #ff5b5b;'>" + totalDebit + "</td><td style='width: 145px; background-color: #40f786;'>" + totalCredit + "</td></tr></table></div> <style> tr:nth-child(even) {  background: #dddddd;  } td, th{ border-bottom: 1px solid #d3d1d1; color: #505050;  }" +
+                " table{     border-top: 1px solid #d3d1d1; border-collapse: collapse; text-align: center; } div " +
+                "{ color: #505050!important; } </style></div></div></div></div>";
             reportData.ReportContent = reportTemplate;
             return reportData;
         }

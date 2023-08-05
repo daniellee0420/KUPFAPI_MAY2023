@@ -570,7 +570,8 @@ namespace API.Servivces.Implementation
                             AccountantID = Convert.ToInt32(emp.LoanAct),
                             BenefeciaryName = emp.ArabicName,
                             ChequeAmount = hd.Totamt,
-                            
+                            ServiceName = hd.ServiceType + ' ' +  hd.ServiceSubType,
+
 
                         }).FirstOrDefault();
             return data;
