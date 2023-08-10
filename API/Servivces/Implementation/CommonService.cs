@@ -1,15 +1,18 @@
-﻿using API.DTOs;
+﻿using API.Common;
+using API.DTOs;
 using API.DTOs.DropDown;
 using API.DTOs.EmployeeDto;
 using API.Helpers;
 using API.Models;
 using API.Servivces.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -571,8 +574,9 @@ namespace API.Servivces.Implementation
                             BenefeciaryName = emp.ArabicName,
                             ChequeAmount = hd.Totamt,
                             ServiceName = hd.ServiceType + ' ' +  hd.ServiceSubType,
-
-
+                            IsDraftCreated = hd.IsDraftCreated,
+                            ChequeNumber = hd.ChequeNumber,
+                            ChequeDate = hd.ChequeDate,
                         }).FirstOrDefault();
             return data;
         }
@@ -715,6 +719,58 @@ namespace API.Servivces.Implementation
             return result;
         }
 
-       
+        public async Task<int> AddNewSubscription(NewSubscriptionModel newSubscriptionModel)
+        {
+            int result = 0;
+            try
+            {
+              
+                Hashtable hashTable = new Hashtable();
+                hashTable.Add("InputEmpId", newSubscriptionModel.EmpId);
+                hashTable.Add("InputCivilId", newSubscriptionModel.CivilId);
+                hashTable.Add("InputEmpMobile", newSubscriptionModel.EmpMobile);
+                hashTable.Add("InputEmpEmail", newSubscriptionModel.EmpEmail);
+                hashTable.Add("InputIsKUEmp", newSubscriptionModel.IsKUEmp);
+                hashTable.Add("InputIsSickLeave", newSubscriptionModel.IsSickLeave);
+                DataSet objDataset = CommonMethods.GetDataSet("[dbo].[spAddNewSubscriptionFromWebsite]", CommandType.StoredProcedure, hashTable);
+                result = (int)objDataset.Tables[0].Rows[0][1];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result = 4;
+                return result;
+            }
+        }
+
+        public async Task<NewSubscriberDto> GetNewSubscription(PaginationParams paginationParams, int tenentId, int locationId)
+        {
+            try
+            {
+                var data = new NewSubscriberDto();
+                List<NewSubscriberDtoList> newSubscriberDtoList = new List<NewSubscriberDtoList>();
+                Hashtable hashTable = new Hashtable();
+                hashTable.Add("tenentId", tenentId);
+                hashTable.Add("locationId", locationId);
+                DataSet objDataset = CommonMethods.GetDataSet("[dbo].[spGetNewSubscription]", CommandType.StoredProcedure, hashTable);
+                newSubscriberDtoList = this.AutoMapToObject<NewSubscriberDtoList>(objDataset.Tables[0]);
+                if (!string.IsNullOrEmpty(paginationParams.Query))
+                {
+                    newSubscriberDtoList = newSubscriberDtoList.Where(a => a.EnglishName.ToUpper().Contains(paginationParams.Query.ToUpper()) || a.ArabicName.ToUpper().Contains(paginationParams.Query.ToUpper()) ||
+                       a.Status.ToUpper().Contains(paginationParams.Query.ToUpper()) || a.CivilId.ToUpper().Contains(paginationParams.Query.ToUpper())
+                        || a.employeeID.ToUpper().Contains(paginationParams.Query.ToUpper())).ToList();
+
+                }
+                data.TotalRecords = newSubscriberDtoList.Count();
+                data.NewSubscriberList = newSubscriberDtoList.Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize).Take(paginationParams.PageSize).ToList();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
     }
 }

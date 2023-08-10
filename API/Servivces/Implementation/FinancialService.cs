@@ -2247,7 +2247,12 @@ namespace API.Servivces.Implementation
                     //    Message = "" + employee.EnglishName + " is Terminated On " + ((DateTime)employee.TerminationDate).ToString("dd/MM/yyyy") + " Cant proceed"
                     //};
                 }
+                else if (employee.Pfid == null)
+                {
 
+                    data.IsSuccess = false;
+                    data.Message =  "Membership Subscription Approval is pending";
+                }
 
                 return data;
 

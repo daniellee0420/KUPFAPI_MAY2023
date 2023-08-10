@@ -2,6 +2,7 @@
 using API.DTOs.DropDown;
 using API.DTOs.EmployeeDto;
 using API.Helpers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -127,7 +128,9 @@ namespace API.Servivces.Interfaces
 
         List<dashboardResponseDto> GetDashboardTotalEmployees();
 
+        Task<int> AddNewSubscription(NewSubscriptionModel newSubscriptionModel);
 
+        Task<NewSubscriberDto> GetNewSubscription(PaginationParams paginationParams, int tenentId, int locationId);
 
     }
 }

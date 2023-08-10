@@ -1,5 +1,7 @@
 ﻿using API.DTOs;
+using API.Helpers;
 using API.Models;
+using API.Servivces.Implementation;
 using API.Servivces.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +34,31 @@ namespace API.Controllers
         public async Task<IEnumerable<ServiceSetupServicesDto>> GetServicesForWebMenu()
         {
             var result = await _commonServiceService.GetServicesForWebMenu();
+            return result;
+        }
+        /// <summary>
+        /// it is using to add new subscription from website
+        /// </summary>
+        /// <param name="detailedEmployeeDto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddNewSubscription")]
+        public async Task<ActionResult<int>> AddNewSubscription(NewSubscriptionModel newSubscriptionModel)
+        {
+            var result = await _commonServiceService.AddNewSubscription(newSubscriptionModel);
+            await _context.SaveChangesAsync();
+            return result;
+        }
+
+        /// <summary>
+        /// This api will get all active services from service setup for web menu...
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetVoGetNewSubscriptionucher")]
+        public async Task<NewSubscriberDto> GetNewSubscription([FromQuery] PaginationParams paginationParams, int tenentId, int locationId)
+        {
+            var result = await _commonServiceService.GetNewSubscription(paginationParams,tenentId,locationId);
             return result;
         }
     }
