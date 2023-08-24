@@ -733,7 +733,7 @@ namespace API.Servivces.Implementation
                 hashTable.Add("InputIsKUEmp", newSubscriptionModel.IsKUEmp);
                 hashTable.Add("InputIsSickLeave", newSubscriptionModel.IsSickLeave);
                 DataSet objDataset = CommonMethods.GetDataSet("[dbo].[spAddNewSubscriptionFromWebsite]", CommandType.StoredProcedure, hashTable);
-                result = (int)objDataset.Tables[0].Rows[0][1];
+                result = (int)objDataset.Tables[0].Rows[0][0];
                 return result;
             }
             catch (Exception ex)
@@ -770,6 +770,13 @@ namespace API.Servivces.Implementation
             {
                 return null;
             }
+        }
+
+        public async Task<IEnumerable<SelectUserDto>> GetUsersBytenentidandlocationid(int tenentid, int locationid)
+        {
+            var result = await _context.UserMsts.Where(x => x.TenentId == tenentid && x.LocationId == locationid).ToListAsync();
+            var data = _mapper.Map<IEnumerable<SelectUserDto>>(result);
+            return data;
         }
 
     }

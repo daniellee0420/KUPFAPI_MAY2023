@@ -1,4 +1,5 @@
 ﻿using API.DTOs;
+using API.Helpers;
 using API.Models;
 using API.Servivces.Interfaces;
 using AutoMapper;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Authorize]
+     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserMstController : ControllerBase
@@ -86,10 +87,10 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetUserMst")]
-        public async Task<ActionResult<IEnumerable<UserMstDto>>> GetUserMst()
+        public async Task<UserMstDtoObj> GetUserMst([FromQuery] PaginationParams paginationParams)
         {
-            var result = await _userMstServiceService.GetUserMstAsync();
-            return Ok(result);
+            var result = await _userMstServiceService.GetUserMstAsync(paginationParams);
+            return  result;
         }
         /// <summary>
         /// Api to Update user password...

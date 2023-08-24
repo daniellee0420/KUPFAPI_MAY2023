@@ -100,23 +100,29 @@ namespace API.Controllers
         [Route("AddFunctionForUser")]
         public async Task<ActionResult<int>> AddFunctionForUser([FromBody] FunctionForUserDto[] functionForUserDto)
         {
-
-            var userExistingUserRights = _context.FUNCTION_USER
-                .Where(c => c.USER_ID == functionForUserDto.FirstOrDefault().USER_ID && c.MODULE_ID ==
-                functionForUserDto.FirstOrDefault().MODULE_ID).ToList();
-
-            if (userExistingUserRights.Count > 0)
+            try
             {
-                await _functionUserService.DeleteFunctionUserByUserIdAsync(functionForUserDto.FirstOrDefault().USER_ID, functionForUserDto.FirstOrDefault().MODULE_ID);
-            }
+                var userExistingUserRights = _context.FUNCTION_USER
+                    .Where(c => c.USER_ID == functionForUserDto.FirstOrDefault().USER_ID && c.MODULE_ID ==
+                    functionForUserDto.FirstOrDefault().MODULE_ID).ToList();
 
-            for (int i = 0; i < functionForUserDto.Length; i++)
-            {
-                _context.ChangeTracker.Clear();
-                await _functionUserService.AddFunctionsForUserAsync(functionForUserDto[i]);
-                await _context.SaveChangesAsync();
+                if (userExistingUserRights.Count > 0)
+                {
+                    await _functionUserService.DeleteFunctionUserByUserIdAsync(functionForUserDto.FirstOrDefault().USER_ID, functionForUserDto.FirstOrDefault().MODULE_ID);
+                }
+
+                for (int i = 0; i < functionForUserDto.Length; i++)
+                {
+                    _context.ChangeTracker.Clear();
+                    await _functionUserService.AddFunctionsForUserAsync(functionForUserDto[i]);
+                    await _context.SaveChangesAsync();
+                }
+                return Ok();
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
         /// <summary>
         /// Api to Get Function User By User Id
@@ -144,6 +150,6 @@ namespace API.Controllers
             var result = await _functionUserService.GetModuleWiseMenuItems();
             return Ok(result);
         }
-        
+
     }
 }

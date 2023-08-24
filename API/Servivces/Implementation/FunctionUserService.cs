@@ -102,6 +102,13 @@ namespace API.Servivces.Implementation
             return data;
         }
 
+        public async Task<IEnumerable<FunctionUserDto>> GetFunctionUserByUserIdAsyncForLogin(int id)
+        {
+            var result = await _context.FUNCTION_USER.Where(c => c.USER_ID == id && c.ACTIVE_FLAG ==1).ToListAsync();
+            var data = _mapper.Map<IEnumerable<FunctionUserDto>>(result);
+            return data;
+        }
+
         public async Task<int> DeleteFunctionUserByUserIdAsync(int userId, int moduleId)
         {
             int result = 0;

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace API.DTOs
 {
+    public class ServiceSetupDtoObj
+    {
+        public List<ServiceSetupDto> serviceSetupDto { get; set; }
+        public int TotalRecords { get; set; }
+    }
     public class ServiceSetupDto
     {
         public int TenentId { get; set; }

@@ -1574,7 +1574,8 @@ namespace API.Servivces.Implementation
                                 e.TenentId == tenentId &&
                                 e.LocationId == locationId &&
                                 ap.LocationId == locationId &&
-                                //ap.SerApprovalId == 1 && // Manager Role Id
+                                ap.Status == "ManagerApproval" &&
+                                 ap.SerApprovalId == 1 && // Manager Role Id
                                 // ap.DisplayPERIOD_CODE <= periodCode &&
                                 // ap.DisplayPERIOD_CODE >= periodCode &&
                                 ap.Active == true
@@ -1629,6 +1630,7 @@ namespace API.Servivces.Implementation
         public async Task<string> ManagerApproveServiceAsync(ApproveRejectServiceDto approveRejectServiceDto)
         {
             int result = 0;
+            try { 
             if (_context != null)
             {
                 var existingtransactionHddApprovals = _context.TransactionHddapprovalDetails
@@ -1713,7 +1715,12 @@ namespace API.Servivces.Implementation
                 }
                 return result.ToString();
             }
-            return result.ToString();
+            }
+            catch (Exception ex)
+            {
+
+            }
+                return result.ToString();
         }
 
         public async Task<string> ManagerRejectServiceAsync(ApproveRejectServiceDto approveRejectServiceDto)
@@ -2382,17 +2389,17 @@ namespace API.Servivces.Implementation
 
             if (searchEmployeeDto.EmployeeId != 0)
             {
-                employee = await _context.DetailedEmployees.Where(c => c.EmployeeId == searchEmployeeDto.EmployeeId && c.TerminationDate == null).FirstOrDefaultAsync();
+                employee = await _context.DetailedEmployees.Where(c => c.EmployeeId == searchEmployeeDto.EmployeeId).FirstOrDefaultAsync();
                 transactions = _context.TransactionDts.Where(p => p.TenentId == employee.TenentId && p.LocationId == employee.LocationId && p.EmployeeId == Convert.ToInt32(employee.EmployeeId)).ToList();
             }
             else if (searchEmployeeDto.PFId != string.Empty || !string.IsNullOrWhiteSpace(searchEmployeeDto.PFId))
             {
-                employee = await _context.DetailedEmployees.Where(c => c.Pfid == searchEmployeeDto.PFId && c.TerminationDate == null).FirstOrDefaultAsync();
+                employee = await _context.DetailedEmployees.Where(c => c.Pfid == searchEmployeeDto.PFId).FirstOrDefaultAsync();
                 transactions = _context.TransactionDts.Where(p => p.TenentId == employee.TenentId && p.LocationId == employee.LocationId && p.EmployeeId == Convert.ToInt32(employee.EmployeeId)).ToList();
             }
             else if (searchEmployeeDto.CID != string.Empty || !string.IsNullOrWhiteSpace(searchEmployeeDto.CID))
             {
-                employee = await _context.DetailedEmployees.Where(c => c.EmpCidNum == searchEmployeeDto.CID && c.TerminationDate == null).FirstOrDefaultAsync();
+                employee = await _context.DetailedEmployees.Where(c => c.EmpCidNum == searchEmployeeDto.CID).FirstOrDefaultAsync();
                 transactions = _context.TransactionDts.Where(p => p.TenentId == employee.TenentId && p.LocationId == employee.LocationId && p.EmployeeId == Convert.ToInt32(employee.EmployeeId)).ToList();
             }
             if (employee == null)
@@ -2401,6 +2408,14 @@ namespace API.Servivces.Implementation
                 {
                     IsSuccess = false,
                     Message = "Employee not found..."
+                };
+            }
+            else if (employee.TerminationDate != null)
+            {
+                return new ReturnSearchResultDto
+                {
+                    IsSuccess = false,
+                    Message = "Employee is terminated on" + employee.TerminationDate + ""
                 };
             }
             else

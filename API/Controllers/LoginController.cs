@@ -71,6 +71,10 @@ namespace API.Controllers
 
                 if (tokenNo == null)
                     tokenNo = Convert.ToString(_tokenService.CreateToken(user[0].LoginId));
+                else
+                {
+                    var result = _tokenService.UpdateTokenDetailsByUserName(user[0].LoginId);
+                }
 
                 List<LoginDto> userList = new List<LoginDto>();
                 if (user.Count() >= 1)
@@ -113,7 +117,7 @@ namespace API.Controllers
             {
                 List<MenuHeadingDto> menuHeader = new List<MenuHeadingDto>();
                 // Get menu data by UserId...
-                var result = await _functionUserService.GetFunctionUserByUserIdAsync(id);
+                var result = await _functionUserService.GetFunctionUserByUserIdAsyncForLogin(id);
 
                 if (result.Count() > 0)
                 {
@@ -288,9 +292,9 @@ namespace API.Controllers
         public async Task<ActionResult<DetailedEmployeeDto>> MobileLogin(MobileLoginDto mobileLoginDto)
         {
 
-          
+            string decodedPass = CommonMethods.EncodePass(mobileLoginDto.password);
             var employee = await _context.DetailedEmployees.
-                Where(c => c.EmployeeLoginId == mobileLoginDto.username && c.EmployeePassword == mobileLoginDto.password)
+                Where(c => c.EmployeeLoginId == mobileLoginDto.username && c.EmployeePassword == decodedPass)
                 .FirstOrDefaultAsync();
 
             var user = _mapper.Map<DetailedEmployeeDto>(employee);

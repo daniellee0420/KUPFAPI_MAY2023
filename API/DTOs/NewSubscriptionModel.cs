@@ -8,6 +8,6 @@
         public string EmpEmail { get; set; }
         public string EmpMobile { get; set; }
         public int IsKUEmp { get; set; }
-        public string IsSickLeave { get; set; }
+        public int IsSickLeave { get; set; }
     }
 }

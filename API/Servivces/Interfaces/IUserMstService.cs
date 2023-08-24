@@ -1,4 +1,7 @@
 ﻿using API.DTOs;
+using API.Helpers;
+using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +14,8 @@ namespace API.Servivces.Interfaces
         Task<int> AddUserMstAsync(UserMstDto userMstDto);
         Task<int> UpdatUserMstAsync(UserMstDto userMstDto);
         Task<int> DeleteUserMstAsync(int id);
-        Task<UserMstDto> GetUserMstByIdAsync(int userId);        
-        Task<IEnumerable<UserMstDto>> GetUserMstAsync();
+        Task<UserMstDto> GetUserMstByIdAsync(int userId);
+        Task<UserMstDtoObj> GetUserMstAsync(PaginationParams paginationParams);
 
         Task<int> UpatePasswordAsync(UpdatePasswordDto userMstDto);
     }

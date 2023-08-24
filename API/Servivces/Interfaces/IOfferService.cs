@@ -1,4 +1,5 @@
 ﻿using API.DTOs;
+using API.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,6 +12,6 @@ namespace API.Servivces.Interfaces
         Task<int> EditOffer(OffersDto serviceSetupDto);
         Task<int> DeleteOffer(int id);
         Task<ServiceSetupDto> GetOfferById(int id);
-        Task<IEnumerable<ServiceSetupDto>> GetOffers();
+        Task<ServiceSetupDtoObj> GetOffers(PaginationParams paginationParams);
     }
 }

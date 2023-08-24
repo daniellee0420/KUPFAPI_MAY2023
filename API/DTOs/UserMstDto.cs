@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace API.DTOs
 {
+    public class UserMstDtoObj
+    {
+        public List<UserMstDto> userMstDto { get; set; }
+        public int TotalRecords { get; set; }
+    }
     public class UserMstDto
     {
         public int TenentId { get; set; }

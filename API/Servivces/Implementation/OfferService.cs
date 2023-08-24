@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using API.Common;
+using API.Helpers;
 
 namespace API.Servivces.Implementation
 {
@@ -220,11 +221,19 @@ namespace API.Servivces.Implementation
             return data;
         }
 
-        public async Task<IEnumerable<ServiceSetupDto>> GetOffers()
+        public async Task<ServiceSetupDtoObj> GetOffers(PaginationParams paginationParams)
         {
             var result = _context.ServiceSetups.Where(c=>c.OfferType == "1").OrderByDescending(x => x.ServiceId).ToList();
             var data = _mapper.Map<IEnumerable<ServiceSetupDto>>(result);
-            return data;
+            var serviceSetupDtoObj = new ServiceSetupDtoObj();
+            if (!string.IsNullOrEmpty(paginationParams.Query))
+            {
+                data = data.Where(u => u.ServiceName1.ToLower().Contains(paginationParams.Query.ToLower())
+                || u.ServiceName2.ToLower().Contains(paginationParams.Query.ToLower()));  
+            }
+            serviceSetupDtoObj.TotalRecords = data.Count();
+            serviceSetupDtoObj.serviceSetupDto = data.Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize).Take(paginationParams.PageSize).ToList();
+            return serviceSetupDtoObj;
         }
         
         //public static byte[] GetFileFromFolder(string filePath)

@@ -11,5 +11,6 @@ namespace API.Servivces.Interfaces
         string CreateToken(string username);
         string GetTokenValueByUserName(string userName);
         bool IsTokenValid(string token);
+        int UpdateTokenDetailsByUserName(string userName);
     }
 }

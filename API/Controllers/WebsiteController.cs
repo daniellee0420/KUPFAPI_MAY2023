@@ -4,6 +4,7 @@ using API.Models;
 using API.Servivces.Implementation;
 using API.Servivces.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -54,8 +55,9 @@ namespace API.Controllers
         /// This api will get all active services from service setup for web menu...
         /// </summary>
         /// <returns></returns>
+         [Authorize]
         [HttpGet]
-        [Route("GetVoGetNewSubscriptionucher")]
+        [Route("GetNewSubscription")]
         public async Task<NewSubscriberDto> GetNewSubscription([FromQuery] PaginationParams paginationParams, int tenentId, int locationId)
         {
             var result = await _commonServiceService.GetNewSubscription(paginationParams,tenentId,locationId);

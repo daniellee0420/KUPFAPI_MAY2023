@@ -131,6 +131,7 @@ namespace API.Servivces.Interfaces
         Task<int> AddNewSubscription(NewSubscriptionModel newSubscriptionModel);
 
         Task<NewSubscriberDto> GetNewSubscription(PaginationParams paginationParams, int tenentId, int locationId);
+        Task<IEnumerable<SelectUserDto>> GetUsersBytenentidandlocationid(int tenentid, int locationid);
 
     }
 }

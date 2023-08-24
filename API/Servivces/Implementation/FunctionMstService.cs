@@ -74,7 +74,7 @@ namespace API.Servivces.Implementation
         }
         public async Task<IEnumerable<FunctionMstDto>> GetFunctionMstDataAsync()
         {
-            var result = await _context.FUNCTION_MST.ToListAsync();
+            var result = await _context.FUNCTION_MST.Where(x => x.ACTIVE_FLAG ==1).ToListAsync();
             var data = _mapper.Map<IEnumerable<FunctionMstDto>>(result);
             return data;
         }

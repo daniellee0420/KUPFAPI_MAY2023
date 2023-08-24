@@ -1,4 +1,5 @@
 ﻿using API.DTOs;
+using API.Helpers;
 using API.Models;
 using API.Servivces.Implementation;
 using API.Servivces.Interfaces;
@@ -11,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Authorize]
+   
+     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OffersController : ControllerBase
@@ -88,10 +90,10 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetOffers")]
-        public async Task<ActionResult<IEnumerable<ServiceSetupDto>>> GetOffers()
+        public async Task<ServiceSetupDtoObj> GetOffers([FromQuery] PaginationParams paginationParams)
         {
-            var result = await _offerService.GetOffers();
-            return Ok(result);
+            var result = await _offerService.GetOffers(paginationParams);
+            return result;
         }
         
     }

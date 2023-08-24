@@ -81,7 +81,7 @@ namespace API.Servivces.Implementation.Localization
                   u.FormID.ToLower().Contains(paginationModel.Query.ToLower()) ||
                   u.HeaderName.ToLower().Contains(paginationModel.Query.ToLower()) ||
                   u.SubHeaderName.ToLower().Contains(paginationModel.Query.ToLower()) ||
-                  u.Status.ToLower().Contains(paginationModel.Query.ToLower()) ||
+                 // u.Status.ToLower().Contains(paginationModel.Query.ToLower()) ||
                 u.FormName.ToLower().Contains(paginationModel.Query.ToLower())
                     );
             }

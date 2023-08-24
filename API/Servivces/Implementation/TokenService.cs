@@ -128,5 +128,24 @@ namespace API.Servivces.Implementation
             }
             return null;
         }
+
+        public int UpdateTokenDetailsByUserName(string userName)
+        {
+            int result = 0;
+            try
+            {
+                var data = new TokenAuthorizationModel();
+                Hashtable hashTable = new Hashtable();
+                hashTable.Add("userName", userName);
+                DataSet objDataset = CommonMethods.GetDataSet("[dbo].[spUpdateTokenDetails]", CommandType.StoredProcedure, hashTable);
+                result = (int)objDataset.Tables[0].Rows[0][0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return result;
+            }
+            
+        }
     }
 }

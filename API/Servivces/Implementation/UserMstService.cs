@@ -1,8 +1,11 @@
 ﻿using API.Common;
 using API.DTOs;
+using API.DTOs.EmployeeDto;
+using API.Helpers;
 using API.Models;
 using API.Servivces.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -82,10 +85,20 @@ namespace API.Servivces.Implementation
             var data = _mapper.Map<UserMstDto>(result);
             return data;
         }
-        public async Task<IEnumerable<UserMstDto>> GetUserMstAsync()
+        public async Task<UserMstDtoObj> GetUserMstAsync(PaginationParams paginationParams)
         {
+            var data = new UserMstDtoObj();
             var result = await _context.UserMsts.ToListAsync();
-            var data = _mapper.Map<IEnumerable<UserMstDto>>(result);
+            var userMstList = _mapper.Map<IEnumerable<UserMstDto>>(result) ;
+            if (!string.IsNullOrEmpty(paginationParams.Query))
+            {
+                userMstList = userMstList.Where(u => u.FirstName.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                u.LastName.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                u.Email.ToLower().Contains(paginationParams.Query.ToLower()) ||
+                u.LoginId.ToLower().Contains(paginationParams.Query.ToLower()));
+            }
+            data.TotalRecords = userMstList.Count();
+            data.userMstDto = userMstList.Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize).Take(paginationParams.PageSize).ToList();
             return data;
         }
 

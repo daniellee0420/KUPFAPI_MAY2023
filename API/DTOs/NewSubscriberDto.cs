@@ -18,7 +18,7 @@ namespace API.DTOs
         public string Status { get; set; }
         public string CivilId { get; set; }
         public string MobileNo { get; set; }
-        public string SubscriptionAppliedDate { get; set; }
+        public DateTime SubscriptionAppliedDate { get; set; }
     }
 }
 

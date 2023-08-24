@@ -20,6 +20,8 @@ namespace API.Servivces.Interfaces
 
         Task<int> DeleteFunctionUserByUserIdAsync(int userId,int moduleId);
         Task<IEnumerable<FunctionUserDto>> GetModuleWiseMenuItems();
-        
+        Task<IEnumerable<FunctionUserDto>> GetFunctionUserByUserIdAsyncForLogin(int id);
+
+
     }
 }

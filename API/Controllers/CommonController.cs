@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Authorize]
+     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommonController : ControllerBase
@@ -494,7 +494,14 @@ namespace API.Controllers
             return result;
         }
 
- 
+        [HttpGet]
+        [Route("GetUsersBytenentidandlocationid")]
+        public async Task<IEnumerable<SelectUserDto>> GetUsersBytenentidandlocationid(int tenentid, int locationid)
+        {
+            var result = await _commonServiceService.GetUsersBytenentidandlocationid(tenentid, locationid);
+            return result;
+        }
+
 
 
     }
